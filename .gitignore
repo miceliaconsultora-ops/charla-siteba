@@ -1,0 +1,9 @@
+# Archivos internos — no se publican
+Guion_Charla1_IA.docx
+project.md
+
+# Sistema / editores
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encuentros SITEBA · IA, desafíos, incorporación y utilidad para el trabajador</title>
+  <meta name="description"
+    content="Charla sobre Inteligencia Artificial para trabajadores bancarios de SITEBA y la CTA Autónoma. Inscripción gratuita, modalidad mixta." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ─── DESIGN TOKENS (Gemini-verified from SITEBA originals) ── */
+    :root {
+      /* Paleta exacta extraída por Gemini de los afiches originales */
+      --blue-deep: #1A4B8C;
+      /* navy — headlines, barras, botones */
+      --blue-mid: #2D6FBF;
+      /* mid — gradientes, logo */
+      --blue-bright: #4A9FD4;
+      /* light — hover, acentos */
+      --blue-vivid: #0066CC;
+      /* vivid — links, CTAs */
+      --gold: #E8A020;
+      /* sol CTA — acento gremialista */
+      --gold-dark: #D48B10;
+      /* gold hover */
+      --white: #FFFFFF;
+      --gray-light: #F2F2F2;
+      /* fondos card, poster bg */
+      --gray-mid: #8A9BB0;
+      --gray-body: #3A3A3A;
+      /* texto párrafo */
+      --black: #1C1C1C;
+      /* fondos oscuros */
+      --black-deep: #0D1520;
+      /* fondos sección hero */
+
+      /* Alias semánticos */
+      --cyan: var(--blue-bright);
+
+      --font-head: 'Barlow Condensed', 'Impact', 'Arial Narrow', sans-serif;
+      --font-body: 'Barlow', 'Open Sans', sans-serif;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+      --shadow: 0 4px 24px rgba(26, 75, 140, 0.18);
+      --shadow-heavy: 0 8px 48px rgba(26, 75, 140, 0.32);
+
+      --section-pad: clamp(48px, 8vw, 96px);
+      --max-w: 1140px;
+
+      /* Gradientes */
+      --grad-primary: linear-gradient(135deg, #4A9FD4 0%, #2D6FBF 50%, #1A4B8C 100%);
+      --grad-logo: linear-gradient(90deg, #3A7FCC 0%, #1A4B8C 100%);
+    }
+
+    /* ─── RESET ────────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black-deep);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ─── UTILITY ──────────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 clamp(16px, 4vw, 48px);
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 174, 239, 0.15);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-heavy);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue-mid), var(--cyan));
+      color: var(--white);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cyan);
+      border: 2px solid var(--cyan);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 174, 239, 0.1);
+    }
+
+    /* Gold pulse — efecto gremialista en hover de botón primario */
+    .btn-primary:hover {
+      animation: goldPulse 0.6s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    }
+
+    @keyframes goldPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(232, 160, 32, 0.7);
+      }
+
+      100% {
+        box-shadow: 0 0 0 14px rgba(232, 160, 32, 0);
+      }
+    }
+
+    /* ─── NAVBAR ───────────────────────────────────────────────── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 0;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .navbar.scrolled {
+      background: rgba(0, 20, 50, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .navbar-logos {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-logos img {
+      height: 40px;
+      width: auto;
+    }
+
+    .navbar-cta {
+      display: flex;
+      gap: 12px;
+    }
+
+    .navbar-cta a {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      transition: color 0.2s;
+    }
+
+    .navbar-cta a:hover {
+      color: var(--cyan);
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 0 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(13, 21, 32, 0.92) 0%, rgba(26, 75, 140, 0.72) 50%, rgba(13, 21, 32, 0.97) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="%234A9FD4" opacity="0.25"/></pattern></defs><rect width="100" height="100" fill="url(%23g)"/></svg>');
+      background-size: cover;
+    }
+
+    /* Animated diagonal stripes — marca gremial */
+    .hero-stripe {
+      position: absolute;
+      top: -100px;
+      left: -200px;
+      width: 600px;
+      height: 800px;
+      background: linear-gradient(135deg, transparent 40%, rgba(0, 128, 212, 0.06) 40%, rgba(0, 128, 212, 0.06) 60%, transparent 60%);
+      transform: rotate(-15deg);
+      animation: stripeFloat 12s ease-in-out infinite;
+    }
+
+    .hero-stripe:nth-child(2) {
+      left: 40%;
+      animation-delay: -4s;
+    }
+
+    .hero-stripe:nth-child(3) {
+      left: 75%;
+      animation-delay: -8s;
+    }
+
+    @keyframes stripeFloat {
+
+      0%,
+      100% {
+        transform: rotate(-15deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(-15deg) translateY(-30px);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-org {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero-org-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hero-org-logo img {
+      height: 64px;
+      width: auto;
+    }
+
+    .hero-org-divider {
+      width: 2px;
+      height: 56px;
+      background: linear-gradient(to bottom, transparent, var(--cyan), transparent);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-head);
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 20px;
+    }
+
+    .hero-eyebrow span {
+      color: var(--gray-mid);
+    }
+
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .hero-title .highlight {
+      color: var(--cyan);
+      display: block;
+    }
+
+    .hero-title .org-name {
+      color: var(--gray-mid);
+      font-size: 0.6em;
+      display: block;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-head);
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 600;
+      color: var(--gray-mid);
+      margin-bottom: 40px;
+      max-width: 700px;
+      line-height: 1.3;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-meta-item i {
+      color: var(--cyan);
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .hero-meta-item .label {
+      color: var(--gray-mid);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .hero-meta-item .value {
+      color: var(--white);
+      font-size: 1rem;
+      display: block;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── SECTION HEADER ───────────────────────────────────────── */
+    .section-header {
+      margin-bottom: clamp(32px, 5vw, 56px);
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      margin-top: 12px;
+    }
+
+    .section-title .accent {
+      color: var(--cyan);
+    }
+
+    .section-line {
+      width: 64px;
+      height: 4px;
+      background: linear-gradient(to right, var(--cyan), var(--blue-bright));
+      margin-top: 16px;
+      border-radius: 2px;
+    }
+
+    /* ─── EVENT INFO STRIP ─────────────────────────────────────── */
+    .event-strip {
+      background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
+      padding: 48px 0;
+      border-top: 3px solid var(--cyan);
+      border-bottom: 3px solid var(--cyan);
+    }
+
+    .event-strip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      text-align: center;
+    }
+
+    .event-card-item i {
+      font-size: 2rem;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+
+    .event-card-item .label {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 4px;
+    }
+
+    .event-card-item .value {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── ABOUT SECTION ────────────────────────────────────────── */
+    .about {
+      padding: var(--section-pad) 0;
+      background: var(--black);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(32px, 6vw, 80px);
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.8;
+      color: var(--gray-mid);
+      margin-bottom: 20px;
+    }
+
+    .about-text p strong {
+      color: var(--white);
+    }
+
+    .speaker-card {
+      background: linear-gradient(135deg, rgba(0, 44, 110, 0.6), rgba(0, 81, 168, 0.4));
+      border: 1px solid rgba(0, 174, 239, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      backdrop-filter: blur(8px);
+    }
+
+    .speaker-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-mid), var(--cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .speaker-name {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+    }
+
+    .speaker-role {
+      font-size: 0.9rem;
+      color: var(--cyan);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .speaker-bio {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--gray-mid);
+    }
+
+    .modality-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(0, 174, 239, 0.2), rgba(0, 128, 212, 0.2));
+      border: 1px solid var(--cyan);
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-top: 24px;
+    }
+
+    /* ─── REGISTRATION FORM ────────────────────────────────────── */
+    .registration {
+      padding: var(--section-pad) 0;
+      background: linear-gradient(180deg, var(--blue-deep) 0%, rgba(0, 10, 30, 0.95) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .registration::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--blue-bright), var(--cyan), var(--blue-bright));
+    }
+
+    .form-wrapper {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 174, 239, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--white);
+      transition: border-color 0.2s, background 0.2s;
+      appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      background: rgba(0, 174, 239, 0.08);
+    }
+
+    .form-group select option {
+      background: var(--blue-deep);
+      color: var(--white);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .form-submit {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .form-submit .btn {
+      width: 100%;
+      justify-content: center;
+      font-size: 1.1rem;
+      padding: 16px;
+    }
+
+    .form-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--gray-mid);
+      margin-top: 12px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 10px 24px;
+      border: 1px solid rgba(0, 174, 239, 0.3);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .radio-option input[type="radio"] {
+      display: none;
+    }
+
+    .radio-option:has(input:checked) {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: rgba(0, 174, 239, 0.1);
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    .form-success i {
+      font-size: 3rem;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+
+    .form-success h3 {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .form-success p {
+      color: var(--gray-mid);
+    }
+
+    /* ─── MAP SECTION ──────────────────────────────────────────── */
+    .location {
+      padding: var(--section-pad) 0;
+      background: var(--black);
+    }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .location-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .location-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .location-detail i {
+      color: var(--cyan);
+      font-size: 1.2rem;
+      margin-top: 3px;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .location-detail .text .label {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .location-detail .text .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .map-container {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 2px solid rgba(0, 174, 239, 0.3);
+      box-shadow: var(--shadow-heavy);
+      height: 380px;
+      background: rgba(0, 44, 110, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: var(--gray-mid);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ─── MATERIALS SECTION ────────────────────────────────────── */
+    .materials {
+      padding: var(--section-pad) 0;
+      background: rgba(0, 20, 50, 0.8);
+    }
+
+    .materials-coming {
+      text-align: center;
+      padding: 64px 24px;
+      border: 2px dashed rgba(0, 174, 239, 0.3);
+      border-radius: var(--radius-lg);
+    }
+
+    .materials-coming i {
+      font-size: 3rem;
+      color: rgba(0, 174, 239, 0.4);
+      margin-bottom: 16px;
+    }
+
+    .materials-coming h3 {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 8px;
+    }
+
+    .materials-coming p {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .material-card {
+      background: rgba(0, 44, 110, 0.3);
+      border: 1px solid rgba(0, 174, 239, 0.2);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .material-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+    }
+
+    .material-card i {
+      font-size: 1.8rem;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+
+    .material-card h4 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .material-card p {
+      font-size: 0.9rem;
+      color: var(--gray-mid);
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────── */
+    .footer {
+      background: var(--blue-deep);
+      border-top: 3px solid var(--cyan);
+      padding: 48px 0 24px;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand img {
+      height: 52px;
+      width: auto;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--gray-mid);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h5 {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.9rem;
+      color: var(--gray-mid);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+
+    .footer-col ul li a i {
+      color: var(--cyan);
+      width: 16px;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: 1px solid rgba(0, 174, 239, 0.4);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .social-btn:hover {
+      color: var(--white);
+      border-color: var(--cyan);
+      background: rgba(0, 174, 239, 0.1);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer-bottom a {
+      color: var(--cyan);
+      transition: color 0.2s;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--white);
+    }
+
+    /* ─── SCROLL ANIMATIONS ────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stamp-in: estilo titular de diario/manifesto gremial */
+    .stamp-in {
+      opacity: 0;
+      transform: translateX(-40px) scaleX(1.04);
+    }
+
+    .stamp-in.visible {
+      animation: stampIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes stampIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-40px) scaleX(1.04);
+      }
+
+      70% {
+        opacity: 1;
+        transform: translateX(4px) scaleX(0.99);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0) scaleX(1);
+      }
+    }
+
+    .stamp-in:nth-child(2).visible {
+      animation-delay: 0.08s;
+    }
+
+    .stamp-in:nth-child(3).visible {
+      animation-delay: 0.16s;
+    }
+
+    /* Rule reveal: barra azul horizontal */
+    .section-line {
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.5s ease-out 0.2s;
+    }
+
+    .section-line.visible {
+      transform: scaleX(1);
+    }
+
+    /* Respeto prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .location-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .map-container {
+        height: 280px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .hero-meta {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .navbar-cta {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── NAVBAR ──────────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-logos">
+        <img src="Design/Logo%20SITEBA-05.svg" alt="SITEBA" />
+        <div style="width:1px;height:28px;background:rgba(74,159,212,0.4)"></div>
+        <img src="Design/Logo%20CTA-05.svg" alt="CTA Autónoma" />
+      </div>
+      <div class="navbar-cta">
+        <a href="#sobre-el-evento">El Evento</a>
+        <a href="#inscripcion">Inscribirse</a>
+        <a href="#lugar">Lugar</a>
+        <a href="#materiales">Materiales</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ────────────────────────────────────────────────── -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg">
+      <div class="hero-stripe"></div>
+      <div class="hero-stripe"></div>
+      <div class="hero-stripe"></div>
+    </div>
+    <div class="container hero-content">
+      <!-- Logos organizaciones -->
+      <div class="hero-org">
+        <div class="hero-org-logo">
+          <img src="Design/Logo%20SITEBA-05.svg" alt="SITEBA" />
+          <span
+            style="font-size:0.58rem;color:rgba(255,255,255,0.45);letter-spacing:0.06em;text-align:center;max-width:220px;margin-top:4px">Sindicato
+            de Trabajadorxs de Entidades Bancarias y Financieras</span>
+        </div>
+        <div class="hero-org-divider"></div>
+        <div class="hero-org-logo">
+          <img src="Design/Logo%20CTA-05.svg" alt="CTA Autónoma" />
+          <span
+            style="font-size:0.58rem;color:rgba(255,255,255,0.45);letter-spacing:0.06em;text-align:center;max-width:220px;margin-top:4px">Central
+            de Trabajadorxs de la Argentina</span>
+        </div>
+      </div>
+
+      <!-- Eyebrow -->
+      <p class="hero-eyebrow">
+        Encuentros SITEBA &nbsp;<span>·</span>&nbsp; Ciclo de Formación Sindical
+      </p>
+
+      <!-- Título principal — stamp-in estilo titular gremialista -->
+      <h1 class="hero-title">
+        <span class="stamp-in"
+          style="color:var(--gray-mid);font-size:0.42em;letter-spacing:0.12em;display:block;margin-bottom:8px;font-weight:700">IA
+          para el trabajador </span>
+        <span class="stamp-in" style="display:block">Inteligencia</span>
+        <span class="stamp-in highlight" style="display:block">Artificial:</span>
+        <span class="stamp-in" style="font-size:0.72em;color:var(--gray-mid);display:block;line-height:1.1">Desafíos,
+          incorporación<br />y utilidad para el trabajador</span>
+      </h1>
+
+      <!-- Meta info -->
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <i class="fa-regular fa-calendar"></i>
+          <div>
+            <span class="label">Fecha</span>
+            <span class="value" id="event-date">23 de junio</span>
+          </div>
+        </div>
+        <div class="hero-meta-item">
+          <i class="fa-regular fa-clock"></i>
+          <div>
+            <span class="label">Hora</span>
+            <span class="value" id="event-time">17:30 a 20:00 h</span>
+          </div>
+        </div>
+        <div class="hero-meta-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <div>
+            <span class="label">Lugar</span>
+            <span class="value" id="event-place">Bartolomé Mitre 748, CABA</span>
+          </div>
+        </div>
+        <div class="hero-meta-item">
+          <i class="fa-solid fa-laptop"></i>
+          <div>
+            <span class="label">Modalidad</span>
+            <span class="value">Presencial y Virtual</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA buttons -->
+      <div class="hero-actions">
+        <a href="#inscripcion" class="btn btn-primary">
+          <i class="fa-solid fa-pen-to-square"></i> Inscribirme gratis
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EVENT INFO STRIP ─────────────────────────────────────── -->
+  <div class="event-strip">
+    <div class="container">
+      <div class="event-strip-grid">
+        <div class="event-card-item">
+          <i class="fa-solid fa-users"></i>
+          <div class="label">Organiza</div>
+          <div class="value">SITEBA · CTA Autónoma</div>
+        </div>
+        <div class="event-card-item">
+          <i class="fa-solid fa-person-chalkboard"></i>
+          <div class="label">Expositor</div>
+          <div class="value">Diego Rebora</div>
+        </div>
+        <div class="event-card-item">
+          <i class="fa-solid fa-ticket"></i>
+          <div class="label">Inscripción</div>
+          <div class="value">Gratuita y abierta</div>
+        </div>
+        <div class="event-card-item">
+          <i class="fa-solid fa-wifi"></i>
+          <div class="label">Modalidad</div>
+          <div class="value">Mixta (presencial + zoom)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SOBRE EL EVENTO ──────────────────────────────────────── -->
+  <section class="about" id="sobre-el-evento">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <span class="tag">El Evento</span>
+          <h2 class="section-title" style="margin-top:16px">
+            ¿De qué <span class="accent">se trata?</span>
+          </h2>
+          <div class="section-line"></div>
+          <br />
+          <p>
+            Desde el área de formación de <strong>SITEBA</strong>, organizamos junto con la <strong>CTA
+              AUTÓNOMA</strong> cuatro jornadas quincenales de reflexión,
+            debate, actualización y talleres prácticos, sobre uno de los fenómenos tecnológicos que más impacta hoy en
+            el mundo del trabajo: la
+            <strong>Inteligencia Artificial</strong>.
+          </p>
+          <p>
+            Las charlas estarán orientadas para <strong>trabajadores de todos los ámbitos</strong> que quieran entender
+            qué
+            es la IA, cómo se está incorporando en el mundo del trabajo, cuáles son sus desafíos, y cómo puede ser una
+            herramienta
+            al servicio del trabajador y no en su contra.
+          </p>
+          <p>
+            El evento tendrá <strong>modalidad mixta</strong>: podés asistir de manera presencial o conectarte de forma
+            virtual. La inscripción es gratuita y abierta a afiliados/as y todos los trabajadores interesados.
+            <strong>NO ES NECESARIO TENER CONOCIMIENTOS PREVIOS</strong>
+          </p>
+          <div class="modality-badge">
+            <i class="fa-solid fa-laptop-house"></i>
+            Presencial + Virtual simultáneo
+          </div>
+        </div>
+        <div class="speaker-card fade-in" style="transition-delay:0.15s">
+          <div class="speaker-avatar">DR</div>
+          <div class="speaker-name">Diego Rebora</div>
+          <div class="speaker-role">Abogado · Desarrollador · Especialista en IA</div>
+          <p class="speaker-bio">
+            Abogado UBA. Desarrollador de software (python, full-stack, RStudio). Certificado Profesional en
+            Inteligencia Artifical ITBA, especialista
+            en adopción de Inteligencia Artificial. Su exposición abordará,
+            desde una perspectiva real, coloquial, y práctica, el impacto actual y futuro de la IA en el mundo del
+            trabajo.
+          </p>
+          <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1)">
+            <div class="tag">Perspectiva sindical · Tecnología · Trabajo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── REGISTRO ─────────────────────────────────────────────── -->
+  <section class="registration" id="inscripcion">
+    <div class="container">
+      <div class="section-header" style="text-align:center">
+        <span class="tag">Inscripción gratuita</span>
+        <h2 class="section-title" style="margin-top:16px">
+          Quiero <span class="accent">inscribirme</span>
+        </h2>
+        <div class="section-line" style="margin:16px auto 0"></div>
+        <p style="color:var(--gray-mid);margin-top:16px;max-width:520px;margin-left:auto;margin-right:auto">
+          Completá el formulario y te llegará la confirmación con el link de Zoom y toda la info del evento.
+        </p>
+      </div>
+
+      <div class="form-wrapper fade-in">
+        <!-- Google Apps Script — reemplazá YOUR_SCRIPT_URL con la URL de tu Web App (ver google-apps-script/INSTRUCCIONES.md) -->
+        <form id="reg-form"
+          action="https://script.google.com/macros/s/AKfycbyxyZ8oCvO5RTQeAJ0yYW2FboTQDL69LGPx6B6LjCzgHgeJjmZjrZusLiKsxN9QHWQmqA/exec"
+          method="POST">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label for="apellido">Apellido</label>
+              <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" required />
+            </div>
+            <div class="form-group full">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
+            </div>
+            <div class="form-group">
+              <label for="residencia">Lugar de residencia</label>
+              <input type="text" id="residencia" name="residencia" placeholder="Ciudad o localidad" />
+            </div>
+            <div class="form-group">
+              <label>¿Sos parte de una organización?</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="es_afiliado" value="Si" id="afiliado-si" required />
+                  <span>Sí</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="es_afiliado" value="No" id="afiliado-no" required />
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group full" id="org-cual-wrapper" style="display:none">
+              <label for="organizacion">¿Cuál?</label>
+              <input type="text" id="organizacion" name="organizacion" placeholder="Nombre de tu organización" />
+            </div>
+            <div class="form-group full">
+              <label for="modalidad">Modalidad de asistencia</label>
+              <select id="modalidad" name="modalidad" required>
+                <option value="" disabled selected>¿Cómo vas a participar?</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Virtual (Zoom)">Virtual (Zoom)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-paper-plane"></i> Confirmar inscripción
+            </button>
+          </div>
+          <p class="form-note">
+            <i class="fa-solid fa-lock" style="color:var(--cyan)"></i>
+            Tu información es confidencial y solo se usa para gestionar el evento.
+          </p>
+        </form>
+        <div class="form-success" id="form-success">
+          <i class="fa-solid fa-circle-check"></i>
+          <h3>¡Inscripción confirmada!</h3>
+          <p>Te enviaremos un email con el link de Zoom y la info completa del evento. ¡Nos vemos el día de la charla!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LUGAR / MAPA ─────────────────────────────────────────── -->
+  <section class="location" id="lugar">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="tag">Lugar del evento</span>
+        <h2 class="section-title" style="margin-top:16px">
+          ¿Dónde <span class="accent">es?</span>
+        </h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="location-grid">
+        <div class="location-info fade-in">
+          <div class="location-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <div class="text">
+              <span class="label">Dirección</span>
+              <span class="value" id="loc-address">Bartolomé Mitre 748, CABA</span>
+            </div>
+          </div>
+          <div class="location-detail">
+            <i class="fa-regular fa-calendar"></i>
+            <div class="text">
+              <span class="label">Fecha</span>
+              <span class="value" id="loc-date">23 de junio</span>
+            </div>
+          </div>
+          <div class="location-detail">
+            <i class="fa-regular fa-clock"></i>
+            <div class="text">
+              <span class="label">Hora</span>
+              <span class="value" id="loc-time">17:30 a 20:00 h</span>
+            </div>
+          </div>
+          <div class="location-detail">
+            <i class="fa-brands fa-youtube" style="color:#FF0000"></i>
+            <div class="text">
+              <span class="label">Modalidad virtual</span>
+              <span class="value">Link de Zoom enviado por email</span>
+            </div>
+          </div>
+        </div>
+        <div class="map-container fade-in" style="transition-delay:0.15s" id="map-wrapper">
+          <iframe src="https://www.google.com/maps?q=Bartolom%C3%A9%20Mitre%20748,%20CABA&output=embed" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Mapa — Bartolomé Mitre 748, CABA"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MATERIALES ───────────────────────────────────────────── -->
+  <section class="materials" id="materiales">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="tag">Material previo</span>
+        <h2 class="section-title" style="margin-top:16px">
+          Material de <span class="accent">referencia</span>
+        </h2>
+        <div class="section-line"></div>
+        <p style="color:var(--gray-mid);margin-top:16px;max-width:560px">
+          En esta sección encontrarás artículos, videos y recursos para prepararte para la charla. Se irán agregando
+          progresivamente.
+        </p>
+      </div>
+      <div class="materials-coming fade-in" id="materials-placeholder">
+        <i class="fa-solid fa-folder-open"></i>
+        <h3>Materiales próximamente</h3>
+        <p>Los recursos preparatorios estarán disponibles antes de la fecha del evento. ¡Registrate para recibir
+          novedades!</p>
+      </div>
+      <!-- Cuando haya materiales, reemplazar el bloque anterior con:
+      <div class="materials-grid">
+        <div class="material-card">
+          <i class="fa-regular fa-file-pdf"></i>
+          <h4>Nombre del material</h4>
+          <p>Descripción breve del recurso.</p>
+          <a href="#" class="btn btn-outline" style="margin-top:16px;font-size:0.85rem;padding:8px 16px">Ver / Descargar</a>
+        </div>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Design/Logo%20SITEBA-05.svg" alt="SITEBA" />
+          <p>Sindicato de Trabajadorxs de Entidades Bancarias y Financieras · CTA Autónoma</p>
+        </div>
+        <div class="footer-col">
+          <a href="#inscripcion" class="btn btn-primary">
+            <i class="fa-solid fa-pen-to-square"></i> Inscribirme al evento
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 SITEBA · Todos los derechos reservados</span>
+        <span>Encuentros SITEBA — Ciclo de Formación Sindical</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── JAVASCRIPT ───────────────────────────────────────────── -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Scroll-reveal: fade-in + stamp-in + section-line
+    const revealEls = document.querySelectorAll('.fade-in, .stamp-in, .section-line');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.classList.add('visible');
+          observer.unobserve(el.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Stamp-in en el título hero al cargar (sin esperar scroll)
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.hero .stamp-in').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), 200 + i * 100);
+      });
+    });
+
+    // Google Apps Script — envío de inscripción al Google Sheet
+    const form = document.getElementById('reg-form');
+    const success = document.getElementById('form-success');
+    if (form) {
+      const orgCualWrapper = document.getElementById('org-cual-wrapper');
+      const orgInput = document.getElementById('organizacion');
+      document.querySelectorAll('input[name="es_afiliado"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          const show = radio.value === 'Si';
+          orgCualWrapper.style.display = show ? 'flex' : 'none';
+          orgInput.required = show;
+        });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const action = form.action;
+
+        // Convertimos los datos a url-encoded: así Apps Script los lee en
+        // e.parameter y la petición no dispara preflight de CORS.
+        const params = new URLSearchParams();
+        new FormData(form).forEach((value, key) => params.append(key, value));
+
+        if (action.includes('YOUR_SCRIPT_URL')) {
+          // Modo desarrollo: todavía no se configuró la URL del script.
+          form.style.display = 'none';
+          success.style.display = 'block';
+          return;
+        }
+
+        const btn = form.querySelector('button[type="submit"]');
+        const btnHTML = btn ? btn.innerHTML : '';
+        if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando…'; }
+
+        try {
+          // Apps Script no envía headers CORS en la respuesta, por eso usamos
+          // no-cors: el POST se ejecuta y guarda la fila, aunque la respuesta
+          // sea opaca (no podemos leerla, así que asumimos éxito).
+          await fetch(action, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString()
+          });
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } catch {
+          if (btn) { btn.disabled = false; btn.innerHTML = btnHTML; }
+          alert('Error de conexión. Por favor intentá nuevamente o escribinos a charlaSITEBA@micelia.com.ar');
+        }
+      });
+    }
+
+    // Smooth anchor scrolling with navbar offset
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top + window.scrollY - 72;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
