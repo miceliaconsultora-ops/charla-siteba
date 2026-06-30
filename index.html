@@ -347,13 +347,69 @@
     }
 
     .hero-subtitle {
-      font-family: var(--font-head);
-      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      margin-top: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 600px;
+    }
+
+    .hero-status-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 174, 239, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-dot.green {
+      background: #2ec4b6;
+      box-shadow: 0 0 10px #2ec4b6;
+    }
+
+    .status-dot.gold-pulse-dot {
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+      animation: goldStatusPulse 2s infinite;
+    }
+
+    @keyframes goldStatusPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(232, 160, 32, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 6px rgba(232, 160, 32, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(232, 160, 32, 0);
+      }
+    }
+
+    .status-text {
+      line-height: 1.4;
+    }
+
+    .status-link {
+      color: var(--cyan);
+      text-decoration: underline;
       font-weight: 600;
-      color: var(--gray-mid);
-      margin-bottom: 40px;
-      max-width: 700px;
-      line-height: 1.3;
+      transition: color 0.2s;
+    }
+
+    .status-link:hover {
+      color: var(--white);
     }
 
     .hero-meta {
@@ -791,44 +847,240 @@
       background: rgba(0, 20, 50, 0.8);
     }
 
-    .materials-coming {
-      text-align: center;
-      padding: 64px 24px;
-      border: 2px dashed rgba(0, 174, 239, 0.3);
+    /* Accordion */
+    .accordion-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .accordion-item {
+      background: rgba(0, 44, 110, 0.15);
+      border: 1px solid rgba(0, 174, 239, 0.15);
       border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
     }
 
-    .materials-coming i {
-      font-size: 3rem;
-      color: rgba(0, 174, 239, 0.4);
-      margin-bottom: 16px;
+    .accordion-item.active {
+      border-color: rgba(0, 174, 239, 0.5);
+      box-shadow: 0 4px 24px rgba(0, 174, 239, 0.12);
+      background: rgba(0, 44, 110, 0.25);
     }
 
-    .materials-coming h3 {
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(0, 20, 50, 0.4);
+      transition: background 0.3s;
+    }
+
+    .accordion-header:hover {
+      background: rgba(0, 174, 239, 0.08);
+    }
+
+    .accordion-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .accordion-number {
       font-family: var(--font-head);
-      font-size: 1.8rem;
-      font-weight: 900;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--gray-mid);
-      margin-bottom: 8px;
+      color: var(--cyan);
     }
 
-    .materials-coming p {
-      color: rgba(255, 255, 255, 0.4);
+    .accordion-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .accordion-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--gray-mid);
+    }
+
+    .accordion-item.active .accordion-badge {
+      background: rgba(0, 174, 239, 0.1);
+      color: var(--cyan);
+    }
+
+    .accordion-icon {
+      font-size: 1.2rem;
+      color: var(--gray-mid);
+      transition: transform 0.3s, color 0.3s;
+      padding: 10px;
+    }
+
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+      color: var(--cyan);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .accordion-content-inner {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Video Featured Card */
+    .video-featured-card {
+      display: grid;
+      grid-template-columns: 1.1fr 1.9fr;
+      gap: 24px;
+      background: linear-gradient(135deg, rgba(0, 44, 110, 0.35), rgba(0, 81, 168, 0.2));
+      border: 1px solid rgba(0, 174, 239, 0.25);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .video-featured-card {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+      }
+      .accordion-header {
+        padding: 16px;
+      }
+      .accordion-content-inner {
+        padding: 16px;
+      }
+    }
+
+    .video-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .video-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .video-info h3 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .video-info p {
+      font-size: 0.9rem;
+      color: var(--gray-mid);
+      line-height: 1.5;
+    }
+
+    .video-player-container {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid rgba(0, 174, 239, 0.2);
+      box-shadow: var(--shadow-heavy);
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+
+    .video-player-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: linear-gradient(135deg, rgba(0, 20, 50, 0.85), rgba(13, 21, 32, 0.9)), url('https://img.youtube.com/vi/1zDdrRqnCQ4/maxresdefault.jpg');
+      background-size: cover;
+      background-position: center;
+      transition: filter 0.3s;
+    }
+
+    .video-placeholder:hover {
+      filter: brightness(1.15);
+    }
+
+    .video-placeholder:hover .play-btn-pulse {
+      transform: scale(1.1);
+      background: var(--cyan);
+      box-shadow: 0 0 30px var(--cyan);
+    }
+
+    .play-btn-pulse {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--blue-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--white);
+      padding-left: 3px;
+      box-shadow: 0 0 20px rgba(0, 174, 239, 0.4);
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
     }
 
     .materials-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
     }
 
     .material-card {
       background: rgba(0, 44, 110, 0.3);
       border: 1px solid rgba(0, 174, 239, 0.2);
       border-radius: var(--radius-md);
-      padding: 24px;
+      padding: 16px;
       transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .material-card:hover {
@@ -837,22 +1089,36 @@
     }
 
     .material-card i {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       color: var(--cyan);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .material-card h4 {
       font-family: var(--font-head);
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      line-height: 1.25;
     }
 
     .material-card p {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--gray-mid);
-      line-height: 1.6;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    /* Pushes buttons container to the bottom for consistent grid alignment */
+    .material-card > :last-child {
+      margin-top: auto !important;
+    }
+
+    /* Standardizes smaller button sizing inside materials cards */
+    .material-card .btn {
+      font-size: 0.78rem !important;
+      padding: 6px 12px !important;
+      gap: 6px;
     }
 
     /* ─── FOOTER ───────────────────────────────────────────────── */
@@ -1135,20 +1401,36 @@
           incorporación<br />y utilidad para el trabajador</span>
       </h1>
 
+      <!-- Subtítulo / Estado de los Encuentros -->
+      <div class="hero-subtitle stamp-in">
+        <div class="hero-status-item">
+          <span class="status-dot green"></span>
+          <span class="status-text">
+            <strong>Ier Encuentro (23/6):</strong> <a href="#materiales" class="status-link">Disponible (ver grabación y materiales)</a>
+          </span>
+        </div>
+        <div class="hero-status-item">
+          <span class="status-dot gold-pulse-dot"></span>
+          <span class="status-text">
+            <strong>IIdo Encuentro:</strong> Próximamente (a confirmar)
+          </span>
+        </div>
+      </div>
+
       <!-- Meta info -->
       <div class="hero-meta">
         <div class="hero-meta-item">
           <i class="fa-regular fa-calendar"></i>
           <div>
             <span class="label">Fecha</span>
-            <span class="value" id="event-date">23 de junio</span>
+            <span class="value" id="event-date">A confirmar</span>
           </div>
         </div>
         <div class="hero-meta-item">
           <i class="fa-regular fa-clock"></i>
           <div>
             <span class="label">Hora</span>
-            <span class="value" id="event-time">17:30 a 20:00 h</span>
+            <span class="value" id="event-time">A confirmar</span>
           </div>
         </div>
         <div class="hero-meta-item">
@@ -1371,14 +1653,14 @@
             <i class="fa-regular fa-calendar"></i>
             <div class="text">
               <span class="label">Fecha</span>
-              <span class="value" id="loc-date">23 de junio</span>
+              <span class="value" id="loc-date">A confirmar</span>
             </div>
           </div>
           <div class="location-detail">
             <i class="fa-regular fa-clock"></i>
             <div class="text">
               <span class="label">Hora</span>
-              <span class="value" id="loc-time">17:30 a 20:00 h</span>
+              <span class="value" id="loc-time">A confirmar</span>
             </div>
           </div>
           <div class="location-detail">
@@ -1406,122 +1688,261 @@
   <section class="materials" id="materiales">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="tag">Material previo</span>
+        <span class="tag">Material y Grabaciones</span>
         <h2 class="section-title" style="margin-top:16px">
-          Material de <span class="accent">referencia</span>
+          Material de <span class="accent">Estudio</span>
         </h2>
         <div class="section-line"></div>
         <p style="color:var(--gray-mid);margin-top:16px;max-width:560px">
-          En esta sección encontrarás artículos, videos y recursos para prepararte para la charla. Se irán agregando
-          progresivamente.
+          En esta sección encontrarás las grabaciones de los encuentros, presentaciones proyectadas y todos los materiales prácticos y teóricos de lectura.
         </p>
       </div>
-      <div class="materials-grid">
-        <!-- Tarjeta 1: Material de Apoyo General -->
-        <div class="material-card fade-in">
-          <i class="fa-regular fa-file-pdf"></i>
-          <h4>Material de apoyo — Charla 1</h4>
-          <p>IA en el trabajo: del humo a la política institucional. Noticias para verificar, glosario y recursos para seguir la charla en vivo.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-            <a href="Materiales/Charla_1_IA_SITEBA_CTA_Material_de_apoyo.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
-              <i class="fa-solid fa-download"></i> Descargar
-            </a>
-            <a href="https://drive.google.com/uc?export=download&id=1VXkVGX-i_m5uWo6iYlmhYyRyBNWByJnH" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
-              <i class="fa-brands fa-google-drive"></i>
-            </a>
+
+      <div class="accordion-container fade-in">
+        <!-- ENCUENTRO 1 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <div class="accordion-title-group">
+              <span class="accordion-number">Primer Encuentro</span>
+              <h3 class="accordion-title">Inteligencia Artificial: Desafíos y utilidad para el trabajador</h3>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <span class="accordion-badge"><i class="fa-solid fa-file-arrow-down"></i> 8 materiales</span>
+                <span class="accordion-badge" style="color:var(--gold); border: 1px solid rgba(232, 160, 32, 0.2); background: rgba(232, 160, 32, 0.05)"><i class="fa-solid fa-circle-play"></i> Video disponible</span>
+              </div>
+            </div>
+            <div class="accordion-icon">
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-content-inner">
+              <!-- Video Destacado -->
+              <div class="video-featured-card">
+                <div class="video-info">
+                  <span class="video-tag"><i class="fa-solid fa-circle-play"></i> Grabación del Encuentro</span>
+                  <h3>Primer Encuentro en Video</h3>
+                  <p>Accedé a la transmisión completa de la primera jornada. Diego Rébora analiza el impacto real de la IA en el mundo del trabajo, distinguiendo el "humo" corporativo de la realidad de las herramientas.</p>
+                  <div style="display:flex;gap:12px;margin-top:8px">
+                    <a href="https://www.youtube.com/watch?v=1zDdrRqnCQ4" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.85rem;padding:10px 20px">
+                      <i class="fa-brands fa-youtube"></i> Ver en YouTube
+                    </a>
+                  </div>
+                </div>
+                <div class="video-player-container" id="video-container">
+                  <div class="video-placeholder" id="video-placeholder">
+                    <div class="play-btn-pulse">
+                      <i class="fa-solid fa-play"></i>
+                    </div>
+                    <span style="font-family: var(--font-head); font-weight:700; font-size: 1.1rem; text-transform:uppercase; letter-spacing: 0.05em; color: var(--white); margin-top: 12px;">Reproducir aquí</span>
+                    <span style="font-size: 0.85rem; color: var(--gray-mid); margin-top: 4px;">Ver video embebido en la página</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Grid de Materiales del Encuentro 1 -->
+              <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px;">
+                <h4 style="font-family: var(--font-head); font-size: 1.3rem; text-transform: uppercase; margin-bottom: 20px; color: var(--cyan)">Materiales Descargables</h4>
+                <div class="materials-grid">
+                  <!-- Tarjeta 1: Presentación Proyectada (NUEVO) -->
+                  <div class="material-card">
+                    <i class="fa-regular fa-file-pdf" style="color: var(--gold)"></i>
+                    <h4 style="display:flex;align-items:center;gap:8px">Presentación — El futuro ya llegó <span class="tag" style="font-size:0.6rem;padding:2px 6px;background:rgba(232,160,32,0.15);border-color:var(--gold);color:var(--gold)">Slides</span></h4>
+                    <p>Presentación proyectada durante el Primer Encuentro. Conceptos clave sobre el impacto de la IA, automatización y herramientas de apoyo.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+                      <a href="Materiales/El_futuro_ya_llego_SITEBA_CTA_Encuentro1lite.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
+                        <i class="fa-solid fa-download"></i> Descargar
+                      </a>
+                      <a href="https://drive.google.com/uc?export=download&id=1spo5g9AhODVGnFR3GOBkW8nh0l1UxLnz" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
+                        <i class="fa-brands fa-google-drive"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta 2: Material de Apoyo General -->
+                  <div class="material-card">
+                    <i class="fa-regular fa-file-pdf"></i>
+                    <h4>Material de apoyo — Charla 1</h4>
+                    <p>IA en el trabajo: del humo a la política institucional. Noticias para verificar, glosario y recursos para seguir la charla en vivo.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+                      <a href="Materiales/Charla_1_IA_SITEBA_CTA_Material_de_apoyo.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
+                        <i class="fa-solid fa-download"></i> Descargar
+                      </a>
+                      <a href="https://drive.google.com/uc?export=download&id=1VXkVGX-i_m5uWo6iYlmhYyRyBNWByJnH" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
+                        <i class="fa-brands fa-google-drive"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta 3: Material Práctico - HTML Interactivo -->
+                  <div class="material-card">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h4>Material Práctico — Ejercicio de Prompts</h4>
+                    <p>Guía interactiva de prompts para ensayar en ChatGPT, Gemini o Claude. Ejercicio práctico sobre asambleas y análisis de propuestas operativas.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+                      <a href="Materiales/SITEBA_Material_practico.html" target="_blank" class="btn btn-primary" style="font-size:0.85rem;padding:8px 16px">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir Ejercicio
+                      </a>
+                      <a href="Materiales/SITEBA_Material_practico.html" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar archivo HTML">
+                        <i class="fa-solid fa-download"></i>
+                      </a>
+                      <a href="https://drive.google.com/uc?export=download&id=10hdfZ0sVX_T1A9zVVcIwyujwiKgwTc8R" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
+                        <i class="fa-brands fa-google-drive"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta 4: Estatuto Docente -->
+                  <div class="material-card">
+                    <i class="fa-regular fa-file-pdf"></i>
+                    <h4>Estatuto del Docente</h4>
+                    <p>Texto completo y oficial del Estatuto del Docente de la Ciudad Autónoma de Buenos Aires (actualizado a Noviembre 2024).</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+                      <a href="Materiales/Estatuto_Docente_Noviembre_2024.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
+                        <i class="fa-solid fa-download"></i> Descargar
+                      </a>
+                      <a href="https://drive.google.com/uc?export=download&id=1N2SsRYi2SnGl9HYqkxqvmt8YmmV6T34M" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
+                        <i class="fa-brands fa-google-drive"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta 5: Actualización Estatuto Docente -->
+                  <div class="material-card">
+                    <i class="fa-regular fa-file-pdf"></i>
+                    <h4>Actualización Estatuto Docente</h4>
+                    <p>Anexo oficial reglamentario con la actualización de la reglamentación del Estatuto del Docente (Septiembre 2024).</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+                      <a href="Materiales/Actualizacion_reglamentacion_Estatuto_Docente_Septiembre_2024.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
+                        <i class="fa-solid fa-download"></i> Descargar
+                      </a>
+                      <a href="https://drive.google.com/uc?export=download&id=1Z9kwu8YSqbrXpdjh2590nj3I7TKH-FLd" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
+                        <i class="fa-brands fa-google-drive"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta 6: Decreto 313/2024 (Estatuto) -->
+                  <div class="material-card">
+                    <i class="fa-regular fa-file-pdf"></i>
+                    <h4>Decreto 313/2024 (Estatuto)</h4>
+                    <p>Decreto oficial reglamentario DECRE-2024-313-GCABA con las modificaciones correspondientes al Estatuto Docente.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+                      <a href="Materiales/DECRE-2024-313-GCABA.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
+                        <i class="fa-solid fa-download"></i> Descargar
+                      </a>
+                      <a href="https://drive.google.com/uc?export=download&id=1suUa1e3WwBJixAqlVE-zp6TTsXDcleEd" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
+                        <i class="fa-brands fa-google-drive"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta 7: Propuesta de Reorganización Operativa -->
+                  <div class="material-card">
+                    <i class="fa-regular fa-file-pdf"></i>
+                    <h4>Propuesta de Reorganización Operativa</h4>
+                    <p>Documento de análisis sobre la reorganización operativa y el impacto de las nuevas tecnologías en los flujos de trabajo bancarios y de servicios.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+                      <a href="Materiales/Propuesta_Reorganizacion_Operativa.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
+                        <i class="fa-solid fa-download"></i> Descargar
+                      </a>
+                      <a href="https://drive.google.com/uc?export=download&id=1Uv6OU-2cx0wD2-TC8CRdBsYqHjCxaE6g" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
+                        <i class="fa-brands fa-google-drive"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta 8: Recomendaciones para seguir investigando -->
+                  <div class="material-card">
+                    <i class="fa-regular fa-file-pdf"></i>
+                    <h4>Recomendaciones para seguir investigando</h4>
+                    <p>Listado curado de recursos, libros, artículos y videos recomendados para profundizar en el estudio del impacto de la inteligencia artificial.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+                      <a href="Materiales/Recomendaciones_para_seguir_investigando.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
+                        <i class="fa-solid fa-download"></i> Descargar
+                      </a>
+                      <a href="https://drive.google.com/uc?export=download&id=1tZlgJrlZV0y4NJFBYHRUsuhc3rIAnrhN" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
+                        <i class="fa-brands fa-google-drive"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Tarjeta 2: Material Práctico - HTML Interactivo -->
-        <div class="material-card fade-in" style="transition-delay:0.05s">
-          <i class="fa-solid fa-laptop-code"></i>
-          <h4>Material Práctico — Ejercicio de Prompts</h4>
-          <p>Guía interactiva de prompts para ensayar en ChatGPT, Gemini o Claude. Ejercicio práctico sobre asambleas y análisis de propuestas operativas.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-            <a href="Materiales/SITEBA_Material_practico.html" target="_blank" class="btn btn-primary" style="font-size:0.85rem;padding:8px 16px">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir Ejercicio
-            </a>
-            <a href="Materiales/SITEBA_Material_practico.html" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar archivo HTML">
-              <i class="fa-solid fa-download"></i>
-            </a>
-            <a href="https://drive.google.com/uc?export=download&id=10hdfZ0sVX_T1A9zVVcIwyujwiKgwTc8R" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
-              <i class="fa-brands fa-google-drive"></i>
-            </a>
+        <!-- ENCUENTRO 2 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title-group">
+              <span class="accordion-number">Segundo Encuentro</span>
+              <h3 class="accordion-title">A confirmar</h3>
+              <div>
+                <span class="accordion-badge"><i class="fa-solid fa-clock"></i> Próximamente</span>
+              </div>
+            </div>
+            <div class="accordion-icon">
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-content-inner">
+              <div style="text-align:center;padding:48px 24px;border:1px dashed rgba(0,174,239,0.2);border-radius:var(--radius-lg)">
+                <i class="fa-solid fa-hourglass-half" style="font-size:2.5rem;color:var(--gray-mid);margin-bottom:16px;display:block"></i>
+                <h4 style="font-family:var(--font-head);font-size:1.4rem;text-transform:uppercase;color:var(--white);margin-bottom:8px">En preparación</h4>
+                <p style="color:var(--gray-mid);max-width:480px;margin:0 auto">La fecha, temática y materiales de esta jornada se confirmarán próximamente. Los recursos estarán disponibles al finalizar el encuentro.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Tarjeta 3: Estatuto Docente -->
-        <div class="material-card fade-in" style="transition-delay:0.1s">
-          <i class="fa-regular fa-file-pdf"></i>
-          <h4>Estatuto del Docente</h4>
-          <p>Texto completo y oficial del Estatuto del Docente de la Ciudad Autónoma de Buenos Aires (actualizado a Noviembre 2024).</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-            <a href="Materiales/Estatuto_Docente_Noviembre_2024.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
-              <i class="fa-solid fa-download"></i> Descargar
-            </a>
-            <a href="https://drive.google.com/uc?export=download&id=1N2SsRYi2SnGl9HYqkxqvmt8YmmV6T34M" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
-              <i class="fa-brands fa-google-drive"></i>
-            </a>
+        <!-- ENCUENTRO 3 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title-group">
+              <span class="accordion-number">Tercer Encuentro</span>
+              <h3 class="accordion-title">A confirmar</h3>
+              <div>
+                <span class="accordion-badge"><i class="fa-solid fa-clock"></i> Próximamente</span>
+              </div>
+            </div>
+            <div class="accordion-icon">
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-content-inner">
+              <div style="text-align:center;padding:48px 24px;border:1px dashed rgba(0,174,239,0.2);border-radius:var(--radius-lg)">
+                <i class="fa-solid fa-hourglass-half" style="font-size:2.5rem;color:var(--gray-mid);margin-bottom:16px;display:block"></i>
+                <h4 style="font-family:var(--font-head);font-size:1.4rem;text-transform:uppercase;color:var(--white);margin-bottom:8px">En preparación</h4>
+                <p style="color:var(--gray-mid);max-width:480px;margin:0 auto">La fecha, temática y materiales de esta jornada se confirmarán próximamente. Los recursos estarán disponibles al finalizar el encuentro.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Tarjeta 4: Actualización Estatuto Docente -->
-        <div class="material-card fade-in" style="transition-delay:0.15s">
-          <i class="fa-regular fa-file-pdf"></i>
-          <h4>Actualización Estatuto Docente</h4>
-          <p>Anexo oficial reglamentario con la actualización de la reglamentación del Estatuto del Docente (Septiembre 2024).</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-            <a href="Materiales/Actualizacion_reglamentacion_Estatuto_Docente_Septiembre_2024.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
-              <i class="fa-solid fa-download"></i> Descargar
-            </a>
-            <a href="https://drive.google.com/uc?export=download&id=1Z9kwu8YSqbrXpdjh2590nj3I7TKH-FLd" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
-              <i class="fa-brands fa-google-drive"></i>
-            </a>
+        <!-- ENCUENTRO 4 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title-group">
+              <span class="accordion-number">Cuarto Encuentro</span>
+              <h3 class="accordion-title">A confirmar</h3>
+              <div>
+                <span class="accordion-badge"><i class="fa-solid fa-clock"></i> Próximamente</span>
+              </div>
+            </div>
+            <div class="accordion-icon">
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
           </div>
-        </div>
-
-        <!-- Tarjeta 5: Decreto 313/2024 (Estatuto) -->
-        <div class="material-card fade-in" style="transition-delay:0.2s">
-          <i class="fa-regular fa-file-pdf"></i>
-          <h4>Decreto 313/2024 (Estatuto)</h4>
-          <p>Decreto oficial reglamentario DECRE-2024-313-GCABA con las modificaciones correspondientes al Estatuto Docente.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-            <a href="Materiales/DECRE-2024-313-GCABA.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
-              <i class="fa-solid fa-download"></i> Descargar
-            </a>
-            <a href="https://drive.google.com/uc?export=download&id=1suUa1e3WwBJixAqlVE-zp6TTsXDcleEd" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
-              <i class="fa-brands fa-google-drive"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Tarjeta 6: Propuesta de Reorganización Operativa -->
-        <div class="material-card fade-in" style="transition-delay:0.25s">
-          <i class="fa-regular fa-file-pdf"></i>
-          <h4>Propuesta de Reorganización Operativa</h4>
-          <p>Documento de análisis sobre la reorganización operativa y el impacto de las nuevas tecnologías en los flujos de trabajo bancarios y de servicios.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-            <a href="Materiales/Propuesta_Reorganizacion_Operativa.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
-              <i class="fa-solid fa-download"></i> Descargar
-            </a>
-            <a href="https://drive.google.com/uc?export=download&id=1Uv6OU-2cx0wD2-TC8CRdBsYqHjCxaE6g" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
-              <i class="fa-brands fa-google-drive"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Tarjeta 7: Recomendaciones para seguir investigando -->
-        <div class="material-card fade-in" style="transition-delay:0.3s">
-          <i class="fa-regular fa-file-pdf"></i>
-          <h4>Recomendaciones para seguir investigando</h4>
-          <p>Listado curado de recursos, libros, artículos y videos recomendados para profundizar en el estudio del impacto de la inteligencia artificial.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-            <a href="Materiales/Recomendaciones_para_seguir_investigando.pdf" download class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px">
-              <i class="fa-solid fa-download"></i> Descargar
-            </a>
-            <a href="https://drive.google.com/uc?export=download&id=1tZlgJrlZV0y4NJFBYHRUsuhc3rIAnrhN" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.85rem;padding:8px 16px;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center" title="Descargar desde Google Drive">
-              <i class="fa-brands fa-google-drive"></i>
-            </a>
+          <div class="accordion-content">
+            <div class="accordion-content-inner">
+              <div style="text-align:center;padding:48px 24px;border:1px dashed rgba(0,174,239,0.2);border-radius:var(--radius-lg)">
+                <i class="fa-solid fa-hourglass-half" style="font-size:2.5rem;color:var(--gray-mid);margin-bottom:16px;display:block"></i>
+                <h4 style="font-family:var(--font-head);font-size:1.4rem;text-transform:uppercase;color:var(--white);margin-bottom:8px">En preparación</h4>
+                <p style="color:var(--gray-mid);max-width:480px;margin:0 auto">La fecha, temática y materiales de esta jornada se confirmarán próximamente. Los recursos estarán disponibles al finalizar el encuentro.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1575,6 +1996,63 @@
         setTimeout(() => el.classList.add('visible'), 200 + i * 100);
       });
     });
+
+    // Lógica de Acordeones
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.closest('.accordion-item');
+        const content = item.querySelector('.accordion-content');
+        const isActive = item.classList.contains('active');
+        
+        // Colapsar los demás acordeones
+        document.querySelectorAll('.accordion-item').forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            const otherContent = otherItem.querySelector('.accordion-content');
+            otherContent.style.maxHeight = otherContent.scrollHeight + 'px';
+            otherContent.offsetHeight; // reflow
+            otherItem.classList.remove('active');
+            otherContent.style.maxHeight = '0px';
+          }
+        });
+        
+        if (isActive) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.offsetHeight; // reflow
+          item.classList.remove('active');
+          content.style.maxHeight = '0px';
+        } else {
+          item.classList.add('active');
+          // Forzar visibilidad de elementos fade-in internos al expandirse
+          item.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.addEventListener('transitionend', function handler() {
+            if (item.classList.contains('active')) {
+              content.style.maxHeight = 'none';
+            }
+            content.removeEventListener('transitionend', handler);
+          });
+        }
+      });
+    });
+
+    // Iniciar primer acordeón activo
+    window.addEventListener('load', () => {
+      const activeItem = document.querySelector('.accordion-item.active');
+      if (activeItem) {
+        const content = activeItem.querySelector('.accordion-content');
+        content.style.maxHeight = 'none';
+        activeItem.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+      }
+    });
+
+    // Carga de Video On-Demand (Lazy-load)
+    const videoPlaceholder = document.getElementById('video-placeholder');
+    if (videoPlaceholder) {
+      videoPlaceholder.addEventListener('click', () => {
+        const container = document.getElementById('video-container');
+        container.innerHTML = `<iframe src="https://www.youtube.com/embed/1zDdrRqnCQ4?autoplay=1" title="Grabación del Primer Encuentro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+      });
+    }
 
     // Google Apps Script — envío de inscripción al Google Sheet
     const form = document.getElementById('reg-form');

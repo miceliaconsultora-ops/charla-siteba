@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Charla 1 - MicelIA Consultora</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0B0F19;
+            color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #05070F;
+            padding: 30px 0;
+        }
+
+        /* DIAPOSITIVA PREMIUM - MARCO 16:9 FIJO */
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 55px 75px;
+            background-color: #0B0F19;
+            background-image:
+                radial-gradient(circle at 88% 10%, rgba(45, 212, 191, 0.16) 0%, rgba(45, 212, 191, 0) 42%),
+                radial-gradient(circle at 8% 100%, rgba(20, 184, 166, 0.10) 0%, rgba(20, 184, 166, 0) 45%),
+                radial-gradient(rgba(148, 163, 184, 0.045) 1px, transparent 1.4px),
+                radial-gradient(circle at 85% 15%, #1E293B 0%, #0F172A 60%, #0B0F19 100%);
+            background-size: 100% 100%, 100% 100%, 28px 28px, 100% 100%;
+            margin-bottom: 35px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(20, 184, 166, 0.18);
+            page-break-after: always;
+        }
+
+        @page {
+            size: 1280px 720px;
+            margin: 0;
+        }
+
+        @media print {
+            html,
+            body {
+                background: #0B0F19;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .slide-container {
+                display: block;
+                padding: 0;
+                background: transparent;
+            }
+
+            .slide {
+                width: 1280px;
+                height: 720px;
+                margin: 0;
+                box-shadow: none;
+                border: none;
+                page-break-inside: avoid;
+                page-break-after: always;
+                break-after: page;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .slide:last-child {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+        }
+
+        /* LÍNEA DE NAVEGACIÓN "MICELIO LINE" */
+        .micelio-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #14B8A6;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(20, 184, 166, 0.28);
+            box-shadow: 0 1px 0 rgba(20, 184, 166, 0.12);
+            padding-bottom: 14px;
+            text-shadow: 0 0 18px rgba(20, 184, 166, 0.22);
+        }
+
+        .micelio-nav svg {
+            margin-right: 7px;
+            filter: drop-shadow(0 0 6px rgba(45, 212, 191, 0.6));
+        }
+
+        .nav-nodes {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-node {
+            width: 7px;
+            height: 7px;
+            background: rgba(20, 184, 166, 0.2);
+            border-radius: 50%;
+        }
+
+        .nav-node.active {
+            background: #2DD4BF;
+            box-shadow: 0 0 10px #2DD4BF, 0 0 20px #14B8A6;
+        }
+
+        /* TIPOGRAFÍAS Y CABECERAS */
+        .slide-title {
+            font-size: 40px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-top: 25px;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide-subtitle {
+            font-size: 16.5px;
+            color: #94A3B8;
+            margin-top: 8px;
+            margin-bottom: 0;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        /* SISTEMA DE TARJETAS CON EFECTO GLOW Y HOVER LIFT */
+        .card-grid {
+            display: grid;
+            gap: 28px;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .card-grid.cols-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .card-grid.cols-3 {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .card-grid.cols-4 {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+
+        .premium-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            background-image:
+                radial-gradient(circle at 100% 0%, rgba(45, 212, 191, 0.10) 0%, rgba(45, 212, 191, 0) 38%),
+                linear-gradient(160deg, rgba(51, 65, 85, 0.45) 0%, rgba(15, 23, 42, 0.35) 100%);
+            border: 1px solid rgba(20, 184, 166, 0.28);
+            border-radius: 16px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(12px);
+            position: relative;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .premium-card:hover {
+            border-color: #2DD4BF;
+            box-shadow: 0 10px 35px rgba(33, 212, 191, 0.15);
+        }
+
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #2DD4BF, #14B8A6);
+            border-top-left-radius: 16px;
+            border-bottom-left-radius: 16px;
+            box-shadow: 0 0 14px rgba(45, 212, 191, 0.45);
+        }
+
+        .premium-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2DD4BF;
+            margin: 0 0 14px 0;
+            line-height: 1.3;
+            text-shadow: 0 0 16px rgba(45, 212, 191, 0.22);
+        }
+
+        .premium-card .card-meta {
+            font-size: 13.5px;
+            color: #94A3B8;
+            font-weight: 600;
+            margin-top: -10px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .premium-card p {
+            font-size: 15px;
+            color: #E2E8F0;
+            margin: 0;
+            line-height: 1.6;
+            white-space: normal;
+            font-weight: 400;
+        }
+
+        /* ===== UTILIDADES DE DISEÑO (resaltado, alertas, iconos) ===== */
+        .hl-green {
+            color: #2DD4BF;
+            font-weight: 700;
+        }
+
+        .hl-blue {
+            color: #60A5FA;
+            font-weight: 700;
+        }
+
+        .hl-red {
+            color: #F87171;
+            font-weight: 700;
+        }
+
+        .hl-orange {
+            color: #FB923C;
+            font-weight: 700;
+        }
+
+        .hl-amber {
+            color: #FBBF24;
+            font-weight: 700;
+        }
+
+        .hl-violet {
+            color: #C084FC;
+            font-weight: 700;
+        }
+
+        /* Icono superior de tarjeta */
+        .card-ic {
+            width: 36px;
+            height: 36px;
+            display: block;
+            margin-bottom: 16px;
+            color: #2DD4BF;
+            filter: drop-shadow(0 0 10px rgba(45, 212, 191, 0.45));
+        }
+
+        /* Variante de tarjeta: ALERTA (roja) */
+        .premium-card.alert {
+            border-color: rgba(239, 68, 68, 0.55);
+            background-color: rgba(239, 68, 68, 0.07);
+            background-image:
+                radial-gradient(circle at 100% 0%, rgba(248, 113, 113, 0.12) 0%, rgba(248, 113, 113, 0) 38%),
+                linear-gradient(160deg, rgba(60, 30, 35, 0.4) 0%, rgba(20, 10, 12, 0.35) 100%);
+        }
+
+        .premium-card.alert::before {
+            background: linear-gradient(to bottom, #F87171, #EF4444);
+            box-shadow: 0 0 14px rgba(248, 113, 113, 0.55);
+        }
+
+        .premium-card.alert h3 {
+            color: #FCA5A5;
+            text-shadow: 0 0 16px rgba(248, 113, 113, 0.3);
+        }
+
+        .premium-card.alert .card-ic {
+            color: #F87171;
+            filter: drop-shadow(0 0 10px rgba(248, 113, 113, 0.5));
+        }
+
+        /* Variante: ATENCIÓN (naranja) */
+        .premium-card.warn {
+            border-color: rgba(251, 146, 60, 0.5);
+            background-color: rgba(251, 146, 60, 0.06);
+        }
+
+        .premium-card.warn::before {
+            background: linear-gradient(to bottom, #FDBA74, #FB923C);
+            box-shadow: 0 0 14px rgba(251, 146, 60, 0.5);
+        }
+
+        .premium-card.warn h3 {
+            color: #FDBA74;
+            text-shadow: 0 0 16px rgba(251, 146, 60, 0.28);
+        }
+
+        .premium-card.warn .card-ic {
+            color: #FB923C;
+            filter: drop-shadow(0 0 10px rgba(251, 146, 60, 0.5));
+        }
+
+        /* Variante: PRECAUCIÓN (amarillo) */
+        .premium-card.amber {
+            border-color: rgba(251, 191, 36, 0.5);
+            background-color: rgba(251, 191, 36, 0.05);
+        }
+
+        .premium-card.amber::before {
+            background: linear-gradient(to bottom, #FCD34D, #FBBF24);
+            box-shadow: 0 0 14px rgba(251, 191, 36, 0.5);
+        }
+
+        .premium-card.amber h3 {
+            color: #FCD34D;
+            text-shadow: 0 0 16px rgba(251, 191, 36, 0.28);
+        }
+
+        .premium-card.amber .card-ic {
+            color: #FBBF24;
+            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
+        }
+
+        /* Variante: POSITIVO (verde/teal reforzado) */
+        .premium-card.good {
+            border-color: rgba(45, 212, 191, 0.6);
+            background-color: rgba(20, 184, 166, 0.08);
+        }
+
+        /* Variante: VIOLETA */
+        .premium-card.violet {
+            border-color: rgba(192, 132, 252, 0.5);
+            background-color: rgba(192, 132, 252, 0.06);
+        }
+
+        .premium-card.violet::before {
+            background: linear-gradient(to bottom, #D8B4FE, #C084FC);
+            box-shadow: 0 0 14px rgba(192, 132, 252, 0.5);
+        }
+
+        .premium-card.violet h3 {
+            color: #D8B4FE;
+            text-shadow: 0 0 16px rgba(192, 132, 252, 0.28);
+        }
+
+        .premium-card.violet .card-ic {
+            color: #C084FC;
+            filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.5));
+        }
+
+        /* Logo monocromo de empresa */
+        .brand-logo {
+            height: 30px;
+            width: auto;
+            display: block;
+            margin-bottom: 16px;
+            color: #2DD4BF;
+            opacity: 0.95;
+            filter: drop-shadow(0 0 8px rgba(45, 212, 191, 0.35));
+        }
+
+        /* Etiqueta pequeña tipo "chip" */
+        .mini-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #2DD4BF;
+            background: rgba(20, 184, 166, 0.12);
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            padding: 6px 14px;
+            border-radius: 999px;
+        }
+
+        /* CONTENEDORES DE FRASES CENTRALES (BLOQUES DE IMPACTO) */
+        .big-quote-box {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%);
+            border: 2px solid #14B8A6;
+            box-shadow: 0 0 50px rgba(20, 184, 166, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 55px;
+            text-align: center;
+            margin: auto;
+            width: 100%;
+            max-width: 1080px;
+        }
+
+        .big-quote-box::before {
+            content: '\201C';
+            position: absolute;
+            top: -34px;
+            left: 28px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 190px;
+            font-weight: 800;
+            line-height: 1;
+            color: rgba(45, 212, 191, 0.12);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .big-quote-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .big-quote-box.danger {
+            background: linear-gradient(135deg, rgba(60, 30, 35, 0.6) 0%, rgba(25, 12, 14, 0.85) 100%);
+            border-color: #EF4444;
+            box-shadow: 0 0 50px rgba(239, 68, 68, 0.28),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .big-quote-box.danger::before {
+            content: none;
+        }
+
+        .big-quote-tag {
+            font-size: 15px;
+            color: #2DD4BF;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 22px;
+        }
+
+        .big-quote-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.45;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* PANELES SEPARADORES DE BLOQUE */
+        .section-hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding-left: 60px;
+            border-left: 4px solid #14B8A6;
+        }
+
+        .section-tag {
+            font-size: 16px;
+            color: #14B8A6;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px rgba(20, 184, 166, 0.4);
+        }
+
+        .section-main-title {
+            font-size: 68px;
+            font-weight: 800;
+            color: #FFFFFF;
+            background: linear-gradient(120deg, #FFFFFF 0%, #E2F5F1 38%, #5EEAD4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            letter-spacing: -1.5px;
+            filter: drop-shadow(0 4px 24px rgba(20, 184, 166, 0.2));
+        }
+
+        .section-desc {
+            font-size: 20px;
+            color: #94A3B8;
+            max-width: 850px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* ESTRUCTURA DE TABLA EJECUTIVA */
+        .premium-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .premium-table tbody tr:nth-child(even) td {
+            background: rgba(15, 23, 42, 0.55);
+        }
+
+        .premium-table th {
+            background: linear-gradient(to right, #14B8A6, #2DD4BF);
+            color: #0F172A;
+            padding: 20px 26px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .premium-table td {
+            background: rgba(30, 41, 59, 0.45);
+            padding: 20px 26px;
+            color: #E2E8F0;
+            font-size: 15.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            line-height: 1.6;
+            backdrop-filter: blur(8px);
+        }
+
+        .premium-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .premium-table td:last-child {
+            color: #2DD4BF;
+            font-weight: 700;
+        }
+
+        /* PIE DE DIAPOSITIVA */
+        .footer-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            padding-top: 18px;
+            font-size: 12.5px;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .footer-line .brand-tag {
+            font-weight: 700;
+            color: #14B8A6;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+
+        <!-- SLIDE 1 -->
+        <div class="slide">
+            <div class="micelio-nav"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:-2px;"><path d="M12 12L4 6M12 12L20 7M12 12L5 19M12 12L19 18" stroke="#2DD4BF" stroke-width="1.2" stroke-opacity="0.6"/><circle cx="12" cy="12" r="3" fill="#2DD4BF"/><circle cx="4" cy="6" r="2" fill="#14B8A6"/><circle cx="20" cy="7" r="2" fill="#14B8A6"/><circle cx="5" cy="19" r="2" fill="#14B8A6"/><circle cx="19" cy="18" r="2" fill="#14B8A6"/></svg>MICELIA CONSULTORA · Micelia 2026</span>
+                <div class="nav-nodes">
+                    <div class="nav-node active"></div>
+                    <div class="nav-node"></div>
+                    <div class="nav-node"></div>
+                    <div class="nav-node"></div>
+                </div>
+            </div>
+            <div class="section-hero">
+                <div class="section-tag">Apertura Oficial</div>
+                <div class="section-main-title" style="font-size: 78px;">El futuro... ¿ya llegó?</div>
+                <div class="section-desc" style="font-size: 24px; color: #E2E8F0;">La realidad del impacto de la IA en
+                    el mundo del trabajo.</div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">CHARLA 1 DE 4</span><span>Exclusivo para Charlas
+                    Formativas</span></div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Quiénes somos....</span><span class="num">Expositores</span></div>
+            <div class="slide-title">Expositores</div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="4"/><path d="M4 21c0-3.6 3.6-6.5 8-6.5s8 2.9 8 6.5"/></svg>
+                        <h3>Diego Rébora</h3>
+                        <div class="card-meta">Abogado · Desarrollador · Especialista en IA</div>
+                        <p>Abogado (UBA). Desarrollador de software (Python, full-stack, RStudio). Certificado Profesional en Inteligencia Artificial (ITBA), especialista en adopción de IA. Founder de MicelIA Consultora.</p>
+                        <p style="margin-top:16px; color:#2DD4BF; font-weight:600; font-size:14px;">IG: @diegorebora · @miceliaconsultor.ia</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>
+                        <h3>Ruben Rébora</h3>
+                        <div class="card-meta">Ingeniero · Docente · Fundador de Atika</div>
+                        <p>Ingeniero Mecánico (UBA). Vicepresidente del INTI. Docente universitario desde 1971, Jefe de Cátedra de Física y Química de la U.T.N. Pacheco, con 50 años de docencia universitaria. Desarrollador de software y fundador de Atika Software, proveedora de soluciones informáticas PYME desde 2001.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">MicelIA & Atika Software</span><span>Alianza
+                    Estratégica</span></div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Fase de Apertura</span><span class="num">01 / Charla 1 de 4</span></div>
+            <div class="section-hero">
+                <div class="section-tag">Punto de partida</div>
+                <div class="section-main-title">Antes que nada,<br>¿de qué estamos hablando?</div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">MicelIA Consultora</span><span>2026</span></div>
+        </div>
+
+        <!-- SLIDE 4 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 0 · Apertura</span><span class="num">02</span></div>
+            <div class="slide-title">¿Qué es la Inteligencia Artificial?</div>
+            <div class="content-area">
+                <div class="big-quote-box">
+                    <div class="big-quote-tag">Definición Operativa y Práctica</div>
+                    <p class="big-quote-text">“La IA es software que aprende de datos —en lugar de seguir solo reglas
+                        escritas a mano— para resolver tareas que asociábamos a la inteligencia humana.”</p>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Conceptos Básicos</span><span>MicelIA 2026</span></div>
+        </div>
+
+        <!-- SLIDE 5 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 0 · Apertura</span><span class="num">03</span></div>
+            <div class="slide-title">Antes seguía reglas; ahora aprende de los datos.</div>
+            <div class="content-area">
+                <div class="card-grid cols-2" style="margin-bottom: 20px;">
+                    <div class="premium-card">
+                        <h3>ANTES · Software tradicional (determinista)</h3>
+                        <p>Recibía un determinado input y generaba el output predeterminado para ese input.</p>
+                    </div>
+                    <div class="premium-card">
+                        <h3>AHORA · Inteligencia artificial</h3>
+                        <p>Aprende patrones recopilando miles de millones de ejemplos (datos) y produce un output nuevo,
+                            siempre diferente (no determinista), para aquello que se le pida.</p>
+                    </div>
+                </div>
+                <p
+                    style="font-size:15px; color:#CBD5E1; line-height:1.6; margin:0; background:rgba(20,184,166,0.08); padding:20px; border-radius:12px; border-left:4px solid #14B8A6; backdrop-filter:blur(5px);">
+                    La IA aprende de una inmensidad de datos —que sirven de ejemplos— y genera respuestas —escribe,
+                    resume, traduce, diseña— incluso para casos para los que no fue específicamente programada.</p>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Paradigma Tecnológico</span><span>MicelIA 2026</span></div>
+        </div>
+
+        <!-- SLIDE 6 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 0 · Apertura</span><span class="num">04</span></div>
+            <div class="slide-title">¿De qué lado de la mecha te encontrás?</div>
+            <div class="slide-subtitle">Entrá al link y elegí una. No hay respuesta correcta.</div>
+            <div class="content-area">
+                <div class="card-grid cols-4">
+                    <div class="premium-card alert">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.8 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.8a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+                        <h3>Doomer / Catastrofista</h3>
+                        <p>Amenaza existencial; habría que frenarla.</p>
+                    </div>
+                    <div class="premium-card warn">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 16a3.5 3.5 0 0 0-.5-6.96A5.5 5.5 0 0 0 6.5 10 4 4 0 0 0 7 18h10.5"/><path d="M8 20v2M12 20v2M16 20v2"/></svg>
+                        <h3>Gloomer / Pesimista</h3>
+                        <p>No se frena, pero destruye empleo; regular fuerte.</p>
+                    </div>
+                    <div class="premium-card violet">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>
+                        <h3>Zoomer / Aceleracionista</h3>
+                        <p>A fondo y sin freno; en contra de regular.</p>
+                    </div>
+                    <div class="premium-card good">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V11"/><path d="M12 11C12 7 9 4 4 4c0 5 3 8 8 7Z"/><path d="M12 13c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6Z"/></svg>
+                        <h3>Bloomer / Optimista cauto</h3>
+                        <p>Avanzar gestionando el riesgo.</p>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:center; gap:26px; margin-top:30px;">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAYAAAAZtYVBAAAAAklEQVR4AewaftIAAAYhSURBVO3BQW4ERxLAQLIw//8y18c8NdAYSS4vMsL+wVqXOKx1kcNaFzmsdZHDWhc5rHWRw1oXOax1kcNaFzmsdZHDWhc5rHWRw1oXOax1kcNaFzmsdZEPX1L5SxWTypOKSWWqmFSeVEwqb1Q8UZkqvqHylyq+cVjrIoe1LnJY6yIffljFT1J5o2JS+U0VT1QmlaliqvhNFT9J5Scd1rrIYa2LHNa6yIdfpvJGxW+q+EkqU8VU8YbKVPGbVN6o+E2HtS5yWOsih7Uu8uE/ruJJxROVqWJS+YbKGxWTylQxqUwV/2WHtS5yWOsih7Uu8uE/TmWqeKLyRGWqmFSeqEwVb6g8UZkq/p8c1rrIYa2LHNa6yIdfVvGbKiaVqWKqeKIyqfwklanijYpJZap4o+Imh7UucljrIoe1LvLhh6n8JZWpYlKZKiaVqWJSmSomlaliUpkqJpWpYlL5SSo3O6x1kcNaFzmsdRH7B//HVL5RMak8qfhNKlPF/5PDWhc5rHWRw1oX+fAllaniicpfqviGylTxRGWq+EsqU8UTlaliUnmj4huHtS5yWOsih7Uu8uGXqTypmFSmikllqniiMlU8UXmiMlW8oTJVTCpTxRsV31B5UvGbDmtd5LDWRQ5rXeTDL6t4ovJE5YnKk4pJZap4UjGpTCpTxZOKSWWqmFTeUJkqfpLKk4pvHNa6yGGtixzWusiHf1nFpDJVPFH5hso3Kp6ovKHypGJSmSomlScVT1T+0mGtixzWushhrYt8uEzFpPKTKiaVNyqeqEwVb6hMFZPKX6qYVH7TYa2LHNa6yGGti3z4ZSpvVEwVk8pUMalMKk8qnqhMFW+ovFHxpGJSmVSmiknlicqTit90WOsih7UucljrIh++VDGpTBVPVJ6oPFF5UjGpPFGZKiaVqWKqmFR+U8UTlaliUrnJYa2LHNa6yGGti3z4ZSpTxRsVk8qTip+kMlVMKlPFVPFE5YnKk4pJZap4UjGpvKEyVXzjsNZFDmtd5LDWRT78sopvqEwVk8pPqniiMlU8UZkqvlHxhso3Kp5U/KTDWhc5rHWRw1oX+fDDKiaVb1RMKlPFpDJVvKHyhsobKr+pYlKZKiaVqWJSmSomlaniG4e1LnJY6yKHtS7y4UsqTyreUHlSMak8UXmi8qRiUpkqJpU3KiaVJypvVEwqU8Wk8m86rHWRw1oXOax1kQ//MpWp4onKT6qYVJ5UTCpTxTcqJpUnFU9UpopJ5SaHtS5yWOsih7Uu8uGHVbxRMam8UTGp3ERlqnii8obKVDFVTCpTxaQyVUwqv+mw1kUOa13ksNZFPvwxlaniScVfqnijYlKZKt6oeKIyVXxD5Y2K33RY6yKHtS5yWOsiH36ZylQxqUwVk8pUMak8qXiiMlVMKlPFk4onKr9J5UnFE5VJ5Y2KbxzWushhrYsc1rrIhz+m8kbFpDJV/KaKSWWqmFS+UfFEZVJ5UvFEZaqYVP7SYa2LHNa6yGGti9g/+ILKk4o3VJ5UvKEyVfwklaniDZWp4g2V31QxqUwVP+mw1kUOa13ksNZF7B/8h6lMFW+oPKmYVL5R8UTlScWkMlW8oTJVTCpPKn7SYa2LHNa6yGGti3z4kspfqnii8kbFpPJGxaQyVUwqTyqeqLyhMlV8o+I3Hda6yGGtixzWusiHH1bxk1TeqHhDZar4SSpTxROVJxWTypOKN1SeqDyp+MZhrYsc1rrIYa2LfPhlKm9UfENlqvhJFZPKk4pJZap4Q+WJyjcqnqhMFT/psNZFDmtd5LDWRT78n6mYVKaKqWJSmSq+oTJVfKPiicpUMalMFZPKVDFVTCpTxTcOa13ksNZFDmtd5MN/XMWkMlVMKm+oPKl4ojKpTBVvqDypeENlqphU/tJhrYsc1rrIYa2LfPhlFX+pYlKZKp6oTBXfqJhUJpWpYlKZKp6ofEPl33RY6yKHtS5yWOsiH36Yyl9SeVIxqUwVU8UTlTcqnlQ8qZhUnlRMKm9U/JsOa13ksNZFDmtdxP7BWpc4rHWRw1oXOax1kcNaFzmsdZHDWhc5rHWRw1oXOax1kcNaFzmsdZHDWhc5rHWRw1oXOax1kf8BuQroivVQubkAAAAASUVORK5CYII=" alt="QR encuesta MicelIA" style="width:108px; height:108px; border-radius:10px; background:#fff; padding:8px; box-shadow:0 0 22px rgba(45,212,191,0.3);" />
+                    <div style="text-align:left;">
+                        <div style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#94A3B8; margin-bottom:6px;">Escaneá el QR o entrá al link</div>
+                        <div style="font-size:19px; font-weight:700; color:#2DD4BF;">es.surveymonkey.com/r/miceliainicio</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Encuesta en vivo · MicelIA Consultora</span><span>Categorías: Reid
+                    Hoffman, Superagency (2025)</span></div>
+        </div>
+
+        <!-- SLIDE 7 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 0 · Apertura</span><span class="num">05</span></div>
+            <div class="slide-title">Todas las respuestas son válidas.</div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card">
+                        <h3>Proporciones en el Trabajo</h3>
+                        <p>Pesimistas (Gloomers) y optimistas cautos (Bloomers): proporciones parecidas dentro del
+                            ecosistema corporativo.</p>
+                    </div>
+                    <div class="premium-card">
+                        <h3>La Postura Extrema</h3>
+                        <p>Los catastrofistas son una clara minoría dentro de las métricas estadísticas globales.</p>
+                    </div>
+                </div>
+                <p style="text-align:center; margin-top:25px;">
+                    <a href="https://es.surveymonkey.com/stories/SM-58Z4bvb9xkAM_2B5wBey7c5g_3D_3D/"
+                        style="font-size:18px; color:#2DD4BF; font-weight:600; letter-spacing:0.5px; text-decoration:underline; text-underline-offset:4px;">
+                        → Ahora miramos juntos el resultado de la encuesta, en vivo.</a></p>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuente: McKinsey (ene-2025)</span><span>Estadísticas de
+                    Adopción</span></div>
+        </div>
+
+        <!-- SLIDE 8 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1</span><span class="num">06</span></div>
+            <div class="section-hero">
+                <div class="section-tag">Sacando el humo</div>
+                <div class="section-main-title">Despejando el humo</div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">MicelIA Consultora</span><span>2026</span></div>
+        </div>
+
+        <!-- SLIDE 9 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Sacando el humo</span><span class="num">07</span></div>
+            <div class="slide-title">El reemplazo por IA es real en las grandes de tecnología.</div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card">
+                        <svg class="brand-logo" viewBox="0 0 23 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="10" height="10"/><rect x="12" y="1" width="10" height="10"/><rect x="1" y="12" width="10" height="10"/><rect x="12" y="12" width="10" height="10"/></svg>
+                        <h3>Microsoft</h3>
+                        <p>~17.000 puestos recortados en 2025, con los ingresos creciendo un 18% interanual de manera sostenida.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="brand-logo" viewBox="0 0 34 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25.5 22H9.5a6.5 6.5 0 0 1-1.1-12.9A7.5 7.5 0 0 1 22.4 8.4 5.8 5.8 0 0 1 25.5 22Z"/></svg>
+                        <h3>Salesforce</h3>
+                        <p>Atención al cliente: reducción de ~9.000 a ~5.000 personas. Declaración explícita de la dirección: «Necesito menos cabezas».</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuentes: Salesforce — Infobae (sep-2025) · Microsoft — El
+                    Cronista (oct-2025)</span></div>
+        </div>
+
+        <!-- SLIDE 10 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Sacando el humo</span><span class="num">08</span></div>
+            <div class="slide-title">Muchos despidos usan la IA de excusa: <span class="hl-green">AI washing</span> (culpar a la IA).</div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card">
+                        <h3>Lo admite Altman</h3>
+                        <p>El mayor vendedor de IA reconoce públicamente que se la utiliza para justificar recortes
+                            estructurales que ya estaban planeados.</p>
+                    </div>
+                    <div class="premium-card">
+                        <h3>Amazon · Jassy</h3>
+                        <p>~14.000 despidos (oct-2025). Primero los ligaron a la IA; en la llamada corporativa con
+                            inversores Jassy lo desmintió de raíz: «no es financiero ni de IA… es cultura».</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuentes: Altman — Infobae (mar-2026) · Jassy — Amazon,
+                    earnings call Q3 (oct-2025)</span></div>
+        </div>
+
+        <!-- SLIDE 11 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Sacando el humo</span><span class="num">09</span></div>
+            <div class="slide-title">El efecto boomerang</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card" style="border-color:#2DD4BF; background:rgba(20,184,166,0.05)">
+                        <h3 style="font-size:40px; color:#FFFFFF; margin-bottom:2px; font-weight:800;">29%</h3>
+                        <div class="card-meta" style="color:#2DD4BF;">Recontratación Activa</div>
+                        <p>De las empresas que recortaron por IA ya revirtió la medida y recontrató personal humano
+                            (jun-2026).</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="brand-logo" viewBox="0 0 50 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="2" width="14" height="2.4"/><rect x="0" y="6" width="14" height="2.4"/><rect x="0" y="10" width="14" height="2.4"/><rect x="0" y="14" width="14" height="2.4"/><rect x="18" y="2" width="14" height="2.4"/><rect x="18" y="6" width="14" height="2.4"/><rect x="18" y="10" width="14" height="2.4"/><rect x="18" y="14" width="14" height="2.4"/><rect x="36" y="2" width="14" height="2.4"/><rect x="36" y="6" width="11" height="2.4"/><rect x="36" y="10" width="11" height="2.4"/><rect x="36" y="14" width="14" height="2.4"/></svg>
+                        <h3>IBM · Redireccionamiento</h3>
+                        <p>Recortó ~8.000 puestos del sector de RR.HH. para automatizar y terminó contratando personal en otras áreas críticas de la empresa.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="brand-logo" viewBox="0 0 38 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 22 4.4 5.2c.2-2.7 4-3 4.9-.5L13 13.6l3.7-8.9c.9-2.5 4.7-2.2 4.9.5L23 22h-4.3l-.7-11.3-2.8 7.4h-3.4L9 10.7 8.3 22Z"/></svg>
+                        <h3>McDonald's · Falla Operativa</h3>
+                        <p>La IA aplicada al autoservicio no filtraba ruido ambiente ni acentos; debieron volver de urgencia a cajeros humanos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuentes: IBM — Infobae (may-2025) · McDonald's y 29% —
+                    BioBioChile (jun-2026)</span></div>
+        </div>
+
+        <!-- SLIDE 12 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Sacando el humo</span><span class="num">10</span></div>
+            <div class="slide-title">La barra libre no genera criterio.</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card alert">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+                        <h3>Falta de Retorno</h3>
+                        <p>El 95% de los proyectos piloto de adopción de IA en grandes corporaciones no entregó ningún retorno medible (MIT).</p>
+                    </div>
+                    <div class="premium-card alert">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17 13.5 8.5l-4 4L2 5"/><path d="M16 17h6v-6"/></svg>
+                        <h3>Iniciativas Abandonadas</h3>
+                        <p>~80% no entrega valor real; el 42% de las firmas abandonó la mayoría de sus iniciativas de desarrollo en 2025.</p>
+                    </div>
+                    <div class="premium-card alert">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5.5C17 4 14.8 3 12 3S7 4.2 7 6s2 2.6 5 3.2 5 1.5 5 3.3-2.2 3-5 3-5-1.2-5-2.7"/></svg>
+                        <h3>Gasto Global de Capital</h3>
+                        <p>Entre 30 y 40 mil millones de dólares gastados en infraestructura, casi en su totalidad sin retorno financiero estratégico claro.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuentes: MIT — Infobae (may-2026) · RAND/Gartner</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 13 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Sacando el humo</span><span class="num">11</span></div>
+            <div class="slide-title">Un caníbal desdentado, enseñando a masticar…</div>
+            <div class="content-area">
+                <div class="card-grid cols-2" style="margin-bottom:20px;">
+                    <div class="premium-card alert">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v16"/><path d="m6 13 6 6 6-6"/></svg>
+                        <h3>OpenAI pierde plata</h3>
+                        <p>Proyecta perder ~85.000 millones de dólares en un solo año fiscal —incluso logrando duplicar ingresos—. Históricamente, nadie perdió tanto y sobrevivió.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 12.6 12.6 20.6a2 2 0 0 1-2.8 0L3 13.8V4h9.8l7.8 7.8a2 2 0 0 1 0 .8Z"/><circle cx="8" cy="8.5" r="1.4"/></svg>
+                        <h3>Manual conocido de mercado</h3>
+                        <p>Subsidiar de forma masiva el uso para crear dependencia operativa primero; proceder a cobrar tarifas altas después. Ya pasó con internet.</p>
+                    </div>
+                </div>
+                <p
+                    style="font-size:16px; color:#FFFFFF; text-align:center; font-weight:600; background:rgba(20,184,166,0.12); padding:16px; border-radius:12px; border:1px solid rgba(20,184,166,0.25);">
+                    La IA barata no era un regalo: era pura captura de mercado.</p>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuente: Xataka (abr-2026)</span></div>
+        </div>
+
+        <!-- SLIDE 14 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Sacando el humo</span><span class="num">12</span></div>
+            <div class="slide-title">El primero te lo regalan, el segundo te lo venden</div>
+            <div class="content-area">
+                <div class="card-grid cols-3" style="margin-bottom:25px;">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4.5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15 8.5a4 4 0 0 1 0 7"/></svg>
+                        <h3>Aparecen los anuncios</h3>
+                        <p>Publicidad integrada de forma nativa en la consola de ChatGPT (feb-2026).</p>
+                    </div>
+                    <div class="premium-card warn">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M11 20V9M16 20v-8"/><path d="m13 4 3 3-3 3"/><path d="M16 7H8"/></svg>
+                        <h3>Encarecimiento silencioso</h3>
+                        <p>+35-50% efectivo sin tocar el precio de lista; migración de funciones críticas hacia planes corporativos caros.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18a9 9 0 1 1 18 0"/><path d="M12 13l4-4"/></svg>
+                        <h3>Caso Uber</h3>
+                        <p>Agotó por completo su presupuesto anual de computación para IA en unos pocos meses.</p>
+                    </div>
+                </div>
+                <p style="font-size:15px; color:#CBD5E1; line-height:1.6; margin:0;"><strong style="color:#2DD4BF;">El
+                        gran matiz:</strong> la estructura del costo —y su conversión en beneficio real— difiere
+                    brutalmente entre el usuario individual y la adopción formal en la empresa.</p>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuente: estimaciones de analistas de mercado (2026); caso
+                    Uber</span></div>
+        </div>
+
+        <!-- SLIDE 15 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Sacando el humo</span><span class="num">13</span></div>
+            <div class="slide-title">¿Qué pasa en Argentina?</div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+                        <h3>Adopción reciente</h3>
+                        <p>Más del 85% de las grandes empresas locales empezó a usar herramientas de IA recién en el período 2024-25.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="4"/><path d="M4 21c0-3.6 3.6-6.5 8-6.5s8 2.9 8 6.5"/></svg>
+                        <h3>Uso personal por delante</h3>
+                        <p>6 de cada 10 personas la usan a nivel individual; solo el 15% reporta usarla seguido y de forma estructurada en el trabajo.</p>
+                    </div>
+                </div>
+                <p
+                    style="font-size:17px; color:#2DD4BF; font-weight:600; margin-top:25px; border-left:3px solid #2DD4BF; padding-left:15px;">
+                    En Argentina no se han registrado despidos masivos a raíz de la adopción de IA.</p>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuente: Unión Industrial Argentina (2025-26)</span></div>
+        </div>
+
+        <!-- SLIDE 16 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Sacando el humo</span><span class="num">14</span></div>
+            <div class="slide-title">La IA ya entró a la PYME argentina, pero sin reglas.</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card">
+                        <h3 style="font-size:34px; font-weight:800; margin-bottom:8px; color:#FFF;">41,6%</h3>
+                        <div class="card-meta" style="color:#2DD4BF; margin-top:0;">Implementación</div>
+                        <p>Ya usa IA en el desarrollo de sus operaciones comerciales.</p>
+                    </div>
+                    <div class="premium-card">
+                        <h3 style="font-size:34px; font-weight:800; margin-bottom:8px; color:#FFF;">91,2%</h3>
+                        <div class="card-meta" style="color:#2DD4BF; margin-top:0;">Fuerza de Trabajo</div>
+                        <p>NO redujo personal ni realizó recortes estructurales por usarla.</p>
+                    </div>
+                    <div class="premium-card">
+                        <h3 style="font-size:34px; font-weight:800; margin-bottom:8px; color:#FFF;">3,3%</h3>
+                        <div class="card-meta" style="color:#2DD4BF; margin-top:0;">Gobernanza</div>
+                        <p>Cuenta con una política o normativa escrita de uso correcto.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuente: La Nación, may-2026 (relevamiento Di
+                    Tella/Fundar/Obs. PYME/BID)</span></div>
+        </div>
+
+        <!-- SLIDE 17 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 1 · Concepto Micelia</span><span class="num">15</span></div>
+            <div class="content-area">
+                <div class="big-quote-box">
+                    <div class="big-quote-tag">Nuestra visión...</div>
+                    <p class="big-quote-text" style="font-size:30px; letter-spacing:0.5px;">“EN LAS PYMES ARGENTINAS NO SOBRAN <span class="hl-green">TRABAJADORES</span>, LO QUE LE SOBRA A LOS <span class="hl-green">TRABAJADORES</span>, SON <span class="hl-blue">TAREAS AUTOMATIZABLES</span>”</p>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Filosofía de Trabajo Colectiva</span><span>MicelIA
+                    Consultora</span></div>
+        </div>
+
+        <!-- SLIDE 18 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Gestión de Riesgo y Leyes</span><span class="num">16</span></div>
+            <div class="section-hero">
+                <div class="section-tag">BLOQUE 2</div>
+                <div class="section-main-title">Ser prudente en las tinieblas</div>
+                <div class="section-desc">Privacidad y recaudos del trabajador en la era digital.</div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">MicelIA Consultora</span><span>2026</span></div>
+        </div>
+
+        <!-- SLIDE 19 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 2 · Privacidad y Recaudos</span><span class="num">17</span></div>
+            <div class="slide-title">Las tinieblas: <span class="hl-green">Shadow AI</span></div>
+            <div class="slide-subtitle">Shadow AI (IA en las sombras) — Inteligencias usadas por fuera de lo que la
+                organización aprueba o sabe.</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card alert">
+                        <h3 style="font-size:30px; color:#FFF; margin-bottom:6px;">77%</h3>
+                        <div class="card-meta" style="color:#FCA5A5; margin-top:0;">Fuga de Información</div>
+                        <p>Pega datos confidenciales o código de la empresa en chats de IA sin autorización.</p>
+                    </div>
+                    <div class="premium-card">
+                        <h3 style="font-size:30px; color:#FFF; margin-bottom:6px;">82%</h3>
+                        <div class="card-meta" style="margin-top:0;">Acceso Corporativo</div>
+                        <p>Ingresa a herramientas de IA utilizando correos o cuentas personales.</p>
+                    </div>
+                    <div class="premium-card">
+                        <h3 style="font-size:30px; color:#FFF; margin-bottom:6px;">69%</h3>
+                        <div class="card-meta" style="margin-top:0;">Liderazgo Informal</div>
+                        <p>De los directivos y mandos ejecutivos la usa de manera encubierta por su cuenta.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuente: Javadex, mar-2026</span></div>
+        </div>
+
+        <!-- SLIDE 20 (LEY 25.326 + ART DEL CODIGO PENAL) -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 2 · Privacidad y Recaudos</span><span class="num">18</span></div>
+            <div class="slide-title">¿Qué dice la ley?</div>
+            <div class="slide-subtitle">Ley 25.326 — Protección de Datos Personales. Y te alcanza a vos, como
+                trabajador.</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card">
+                        <h3>Art. 2 — Definiciones</h3>
+                        <p style="font-size:12.5px; line-height:1.4;"><strong>Datos personales:</strong> información
+                            referida a personas físicas o ideales determinadas o determinables.
+                            <br><br><strong>Datos sensibles:</strong> los que revelan origen racial, opiniones
+                            políticas, convicciones religiosas, afiliación sindical, salud o vida sexual.
+                        </p>
+                    </div>
+                    <div class="premium-card">
+                        <h3>Art. 10.1 — Confidencialidad</h3>
+                        <p style="font-size:13.5px; line-height:1.45;">Quienes intervengan en cualquier fase del tratamiento de datos están estrictamente obligados al secreto profesional corporativo.<br><br>La obligación legal subsiste aun después de terminada la relación laboral.</p>
+                    </div>
+                    <div class="premium-card" style="border-color: #EF4444; background:rgba(239, 68, 68, 0.03);">
+                        <h3 style="color:#FCA5A5;">Art. 32 inc. 2</h3>
+                        <p style="font-size:11.5px; line-height:1.4; color:#E2E8F0;">Incorpórase como artículo 157 bis del Código Penal el siguiente:<br>Será reprimido con la pena de prisión de un mes a dos años el que:<br>1°. A sabiendas e ilegítimamente, o violando sistemas de confidencialidad y seguridad de datos, accediere, de cualquier forma, a un banco de datos personales;<br>2°. Revelare a otro información registrada en un banco de datos personales cuyo secreto estuviere obligado a preservar por disposición de una ley.<br>Cuando el autor sea funcionario público sufrirá, además, pena de inhabilitación especial de uno a cuatro años.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuentes: Ley 25.326 y Código Penal Oficial (Infoleg)</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 21 (PRINCIPIOS MANTENIDOS INTACTOS) -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 2 · Privacidad y Recaudos</span><span class="num">19</span></div>
+            <div class="slide-title">Principios para el trabajador</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h6"/></svg>
+                        <h3>Principio 01</h3>
+                        <p><strong>Nadie te contrató para usar IA.</strong><br><br>Tu contrato estipula funciones específicas. El uso de software automatizado no exime de tus responsabilidades de cuidado.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+                        <h3>Principio 02</h3>
+                        <p><strong>Nadie te paga la IA.</strong><br><br>Las suscripciones profesionales premium y las licencias seguras de datos deben ser costeadas corporativamente.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5Z"/><path d="M12 8v4M12 16h.01"/></svg>
+                        <h3>Principio 03</h3>
+                        <p><strong>Riesgo Organizacional.</strong><br><br><span class="hl-red">–</span> Sin reglas claras ni formación específica dentro de la empresa.<br><span class="hl-red">+</span> Mayor riesgo de exposición de datos y responsabilidad directa del trabajador.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Guía Preventiva Profesional</span><span>MicelIA
+                    Consultora</span></div>
+        </div>
+
+        <!-- SLIDE 22 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 2 · Cierre</span><span class="num">20</span></div>
+            <div class="content-area">
+                <div class="big-quote-box danger">
+                    <p class="big-quote-text" style="font-size:32px; color:#FFFFFF;">NO LA USES <span class="hl-red">SOLO, GRATIS</span> Y/O A <span class="hl-red">ESCONDIDAS</span>.</p>
+                    <div class="big-quote-tag"
+                        style="margin-top:20px; margin-bottom:0; color:#94A3B8; text-transform:none; font-weight:400; font-size:18px;">
+                        La solución real es la adopción institucional integrada que incluya al trabajador.</div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Seguridad de la Información</span></div>
+        </div>
+
+        <!-- SLIDE 23 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Diseño Organizacional Eficaz</span><span class="num">21</span></div>
+            <div class="section-hero">
+                <div class="section-tag">BLOQUE 3</div>
+                <div class="section-main-title">IA como política institucional</div>
+                <div class="section-desc">La necesidad estratégica del marco regulatorio interno.</div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">MicelIA Consultora</span><span>2026</span></div>
+        </div>
+
+        <!-- SLIDE 24 (ELIMINADO CONTENEDOR BARRA LIBRE) -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 3 · Política Institucional</span><span class="num">22</span></div>
+            <div class="slide-title">Nada ni nadie nos puede parar</div>
+            <div class="slide-subtitle">Prohibido prohibir: la única salida real es la adopción institucional regulada.
+            </div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card alert">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>
+                        <h3>Prohibir el acceso</h3>
+                        <p>Es una barrera inútil. Los colaboradores igual la van a usar de forma oculta en las sombras (Shadow AI), multiplicando los riesgos críticos.</p>
+                    </div>
+                    <div class="premium-card good">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.3 2.3 4.7-4.7"/></svg>
+                        <h3>Adopción institucional</h3>
+                        <p>La única vía que funciona de verdad en el largo plazo — y se basa en incluir de forma obligatoria la formación integral del trabajador.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuente: Expansión (feb-2026)</span></div>
+        </div>
+
+        <!-- SLIDE 25 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 3 · Política Institucional</span><span class="num">23</span></div>
+            <div class="slide-title">Habilitar el uso, con reglas y supervisión humana.</div>
+            <div class="slide-subtitle">“El problema no es la tecnología, sino cómo se la integra.” — MIT</div>
+            <div class="content-area">
+                <div class="card-grid cols-4">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+                        <div class="card-meta" style="margin-top:0;">Paso 01</div>
+                        <h3>Herramientas aprobadas</h3>
+                        <p>Formalmente habilitadas, con cuentas corporativas, nunca personales.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+                        <div class="card-meta" style="margin-top:0;">Paso 02</div>
+                        <h3>Clasificar el riesgo</h3>
+                        <p>Distinguir las tareas operativas de bajo riesgo de aquellas tareas críticas.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 3 3 6 3s6-1.3 6-3v-5"/></svg>
+                        <div class="card-meta" style="margin-top:0;">Paso 03</div>
+                        <h3>Formación continua</h3>
+                        <p>Entrenamiento integral y continuo de todo el equipo.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h6"/></svg>
+                        <div class="card-meta" style="margin-top:0;">Paso 04</div>
+                        <h3>Política escrita</h3>
+                        <p>Clara y simple: qué se puede, qué no y qué nunca.</p>
+                    </div>
+                </div>
+                <p style="font-size:14px; color:#94A3B8; text-align:center; margin-top:22px; font-weight:500;">
+                    Conceptos a desarrollar: <span class="hl-green">Human in the loop</span> · <span class="hl-green">Human on the loop</span></p>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Habilitar con reglas y supervisión humana</span><span>Fuente:
+                    MIT — vía Xataka (sep-2025)</span></div>
+        </div>
+
+        <!-- SLIDE 26 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 3 · Política Institucional</span><span class="num">24</span></div>
+            <div class="slide-title">IA como herramienta, <span class="hl-green">no reemplazo</span>.</div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card alert">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V3H6.3a2 2 0 0 0-2 1.7l-1.3 8A2 2 0 0 0 5 15h5l-1 6 5-7"/><path d="M17 3h2a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2"/></svg>
+                        <h3>Klarna (qué mal)</h3>
+                        <p>Reemplazó de forma agresiva su fuerza de atención al cliente con IA de chat ➔ caída drástica en la calidad del servicio ➔ tuvo que volver a recontratar humanos. Sacar al humano salió caro.</p>
+                    </div>
+                    <div class="premium-card good">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10V21H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h2"/><path d="M7 10h3l1-6 5 7v6a2 2 0 0 1-1.7 2l-7.3 1"/></svg>
+                        <h3>Ikea (qué bien)</h3>
+                        <p>Automatizó con éxito el ~50% de las llamadas repetitivas, pero conservó la totalidad de sus 8.500 agentes, los recualificó (upskilling) y los reconvirtió en consultores avanzados de diseño. Abrió una nueva línea de negocio por ~€1.300 M.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuentes: Klarna — Xataka (jun-2025) · Ikea — BioBioChile
+                    (jun-2026)</span></div>
+        </div>
+
+        <!-- SLIDE 27 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 3 · Política Institucional</span><span class="num">25</span></div>
+            <div class="slide-title">LA IA PRECISA <span class="hl-green">SUPERVISIÓN</span></div>
+            <div class="slide-subtitle">La IA sin supervisión experta sale más cara que lo que ahorra.</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card alert">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5.5C17 4 14.8 3 12 3S7 4.2 7 6s2 2.6 5 3.2 5 1.5 5 3.3-2.2 3-5 3-5-1.2-5-2.7"/></svg>
+                        <h3>Costó plata</h3>
+                        <p>Los presupuestos quemados en barra libre sin retorno de valor medible (Bloque 1).</p>
+                    </div>
+                    <div class="premium-card warn">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+                        <h3>Costó datos</h3>
+                        <p>La fuga invisible de activos de información por el uso en las sombras (Bloque 2).</p>
+                    </div>
+                    <div class="premium-card amber">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3 6.5 7 .9-5.2 4.8 1.4 7L12 18l-6.6 3.2 1.4-7L1.6 9.4l7-.9Z"/></svg>
+                        <h3>Costó calidad</h3>
+                        <p>El caso testigo de Klarna demostró que remover por completo al humano daña el producto.</p>
+                    </div>
+                </div>
+                <p style="font-size:16px; color:#2DD4BF; text-align:center; margin-top:25px; font-weight:600;">El
+                    mercado laboral ya lo entendió: las recontrataciones mundiales lo confirman.</p>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Fuente: síntesis — Clarín (2026)</span></div>
+        </div>
+
+        <!-- SLIDE 28 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 3 · Cierre</span><span class="num">26</span></div>
+            <div class="content-area">
+                <div class="big-quote-box">
+                    <p class="big-quote-text" style="font-size:26px;">“LA IA NO REEMPLAZARÁ AL TRABAJADOR, EL <span class="hl-green">TRABAJADOR CON IA</span> REEMPLAZARÁ AL <span class="hl-blue">TRABAJADOR SIN</span>.”</p>
+                </div>
+                <div style="margin-top:30px; text-align:center; color:#94A3B8; font-size:16.5px;">
+                    ¿Qué trabajos están en riesgo? ¿Qué trabajadores serán los más afectados? <strong
+                        style="color:#2DD4BF;">Eso lo abriremos con detalle en el próximo encuentro.</strong>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Futuro del Trabajo</span></div>
+        </div>
+
+        <!-- SLIDE 29 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Taller Operativo</span><span class="num">27</span></div>
+            <div class="section-hero">
+                <div class="section-tag">IMPASSE</div>
+                <div class="section-main-title">Manos a la obra (hands-on)</div>
+                <div class="section-desc">Dejamos el diagnóstico de lado. Nos adentramos directo en la práctica en vivo
+                    sobre plataformas.</div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">MicelIA Consultora</span><span>Práctica en Tiempo
+                    Real</span></div>
+        </div>
+
+        <!-- SLIDE 30 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Glosario Técnico Mínimo</span><span class="num">28</span></div>
+            <div class="section-hero">
+                <div class="section-tag">BLOQUE 4</div>
+                <div class="section-main-title">Diccionario mínimo</div>
+                <div class="section-desc">Los conceptos justos y necesarios para no quedar afuera del mapa del sector.
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">MicelIA Consultora</span><span>2026</span></div>
+        </div>
+
+        <!-- SLIDE 31 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 4 · Glosario</span><span class="num">29</span></div>
+            <div class="slide-title">Las herramientas y su motor</div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M9.7 10.3 6.4 7.4M14.3 10.3l3.3-2.9M9.7 13.7l-3.3 2.9M14.3 13.7l3.3 2.9"/></svg>
+                        <h3>LLM (Large Language Model)</h3>
+                        <p>Gran Modelo de Lenguaje: el tipo de arquitectura matemática algorítmica fundamental que procesa, comprende e interpreta el lenguaje natural humano.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+                        <h3>Modelo</h3>
+                        <p>El «motor» de procesamiento estadístico que ejecuta el cálculo. Cada aplicación de usuario utiliza internamente uno o varios modelos combinados.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Glosario Técnico Primario</span></div>
+        </div>
+
+        <!-- SLIDE 32 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 4 · Glosario</span><span class="num">30</span></div>
+            <div class="slide-title">Cómo se interactúa</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V5a1 1 0 0 1 1-1Z"/><path d="M8 9h8M8 12h5"/></svg>
+                        <h3>Prompt (instrucción)</h3>
+                        <p>La consigna, directriz, contexto y parámetros específicos de texto que le entregás al modelo para guiarlo.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="1.5"/><path d="M6 7V4M10 7V4M14 7V4M18 7V4M6 17v3M18 17v3"/></svg>
+                        <h3>Ventana de contexto</h3>
+                        <p>La memoria de trabajo: cantidad limitada de información e historial que el modelo retiene en una misma sesión.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v5h-5"/></svg>
+                        <h3>Iterar</h3>
+                        <p>El proceso secuencial y progresivo de mejorar un resultado a base de repreguntas ordenadas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Lógica Operativa de Interacción</span></div>
+        </div>
+
+        <!-- SLIDE 33 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 4 · Glosario</span><span class="num">31</span></div>
+            <div class="slide-title">Dos conceptos propios de la IA</div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 7.5 21M16.5 3 15 21M4 8h17M3 16h17"/></svg>
+                        <h3>Token</h3>
+                        <p>La unidad de medida mínima del costo de la IA. El modelo procesa los textos fragmentándolos en tokens matemáticos —no lee palabras completas como el humano— y factura por esa cantidad.</p>
+                    </div>
+                    <div class="premium-card warn">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V11a7 7 0 0 1 14 0v10l-2.5-1.7L14 21l-2-1.7L10 21l-2.5-1.7Z"/><path d="M9.5 11h.01M14.5 11h.01"/></svg>
+                        <h3>Alucinación (hallucination)</h3>
+                        <p>El error lógico interno: fenómeno donde el modelo genera e inventa datos falsos o inexistentes con total seguridad argumental. Requiere validación humana.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Glosario Técnico Avanzado</span></div>
+        </div>
+
+        <!-- SLIDE 34 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 4 · Glosario</span><span class="num">32</span></div>
+            <div class="slide-title">Empresa, herramienta y modelo no son lo mismo.</div>
+            <div class="slide-subtitle">Le hablás a una herramienta; adentro tiene modelos; atrás, una empresa
+                proveedora de software.</div>
+            <div class="content-area">
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th>🏢 Empresa</th>
+                            <th>⚙️ Modelos Destacados</th>
+                            <th>💻 Herramienta de Chat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>OpenAI</td>
+                            <td>Gama GPT · rápido (GPT-4o) / potente (GPT-o1)</td>
+                            <td>ChatGPT</td>
+                        </tr>
+                        <tr>
+                            <td>Anthropic</td>
+                            <td>Haiku (rápido) · Opus / Sonnet (potente)</td>
+                            <td>Claude</td>
+                        </tr>
+                        <tr>
+                            <td>Google</td>
+                            <td>Flash (rápido) · Pro (potente)</td>
+                            <td>Gemini</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer-line"><span class="brand-tag">* Los nombres de modelos cambian seguido; la estructura de
+                    3 capas comerciales, no.</span></div>
+        </div>
+
+        <!-- SLIDE 35 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 4 · Glosario</span><span class="num">33</span></div>
+            <div class="slide-title">Tres herramientas, todas gratis desde el chat.</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V5a1 1 0 0 1 1-1Z"/><circle cx="9" cy="10" r="1"/><circle cx="12.5" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg>
+                        <h3>ChatGPT</h3>
+                        <p>Desarrollado por OpenAI. Herramienta de referencia para tareas generales de redacción, lluvia de ideas inicial y estructuración de textos.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+                        <h3>Claude</h3>
+                        <p>Desarrollado por Anthropic. Destacada en la redacción de prosa fluida de alta calidad, programación de código y análisis lógico avanzado.</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="card-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2c.9 5.2 3.9 8.2 9.1 9.1C15.9 12 12.9 15 12 20.2 11.1 15 8.1 12 2.9 11.1 8.1 10.2 11.1 7.2 12 2Z"/></svg>
+                        <h3>Gemini</h3>
+                        <p>Desarrollado por Google. Destacada por su nivel de integración nativa con el motor de búsqueda web en tiempo real.</p>
+                    </div>
+                </div>
+                <p style="font-size:16px; color:#2DD4BF; font-weight:600; text-align:center; margin-top:20px;">Ahora las
+                    vemos funcionando en vivo.</p>
+            </div>
+            <div class="footer-line"><span class="brand-tag">Ecosistema Libre y Práctico</span></div>
+        </div>
+
+        <!-- SLIDE 36 -->
+        <div class="slide">
+            <div class="micelio-nav"><span>Bloque 5 · Práctica</span><span class="num">34</span></div>
+            <div class="section-hero">
+                <div class="section-tag">Pantalla compartida</div>
+                <div class="section-main-title">DEMO EN VIVO</div>
+                <div class="section-desc">Compartimos pantalla (ChatGPT / Claude) aplicando casos reales del ecosistema
+                    laboral, en tiempo real.</div>
+            </div>
+            <div class="footer-line"><span class="brand-tag">MicelIA Consultora</span><span>Sección en Pantalla
+                    Compartida</span></div>
+        </div>
+
+        <!-- SLIDE 37 (TARJETA DE AGRADECIMIENTO EXCLUSIVA) -->
+        <div class="slide" style="background: radial-gradient(circle at center, #1E293B 0%, #05070F 100%);">
+            <div class="micelio-nav" style="border-bottom:none;"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:-2px;"><path d="M12 12L4 6M12 12L20 7M12 12L5 19M12 12L19 18" stroke="#2DD4BF" stroke-width="1.2" stroke-opacity="0.6"/><circle cx="12" cy="12" r="3" fill="#2DD4BF"/><circle cx="4" cy="6" r="2" fill="#14B8A6"/><circle cx="20" cy="7" r="2" fill="#14B8A6"/><circle cx="5" cy="19" r="2" fill="#14B8A6"/><circle cx="19" cy="18" r="2" fill="#14B8A6"/></svg>MICELIA CONSULTORA · Charla 1 de 4</span><span
+                    class="num" style="color:#2DD4BF; font-weight:800;">CIERRE</span></div>
+            <div class="content-area" style="align-items: center; justify-content: center;">
+                <div
+                    style="background:rgba(20, 184, 166, 0.04); border: 2px solid #14B8A6; padding: 60px 90px; border-radius: 24px; box-shadow: 0 0 45px rgba(20, 184, 166, 0.2); text-align: center; max-width: 850px; width:100%;">
+                    <h2
+                        style="font-size: 58px; font-weight: 800; color: #FFFFFF; margin: 0 0 15px 0; letter-spacing: -1.5px;">
+                        ¡Muchas gracias!</h2>
+                    <p style="font-size: 24px; color: #2DD4BF; font-weight: 600; margin: 0; letter-spacing: 0.5px;">
+                        Hasta el próximo encuentro.</p>
+                    <div style="margin-top: 34px; padding-top: 26px; border-top: 1px solid rgba(20,184,166,0.25); display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                        <div style="color:#94A3B8; font-size:12px; letter-spacing:3px; text-transform:uppercase;">Seguinos</div>
+                        <div style="display:flex; align-items:center; gap:10px; font-size:17px; color:#E2E8F0; font-weight:600;">
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+                            @diegorebora &nbsp;·&nbsp; @miceliaconsultor.ia
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; font-size:19px; color:#2DD4BF; font-weight:700; letter-spacing:0.5px;">
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9S14.5 18.5 12 21C9.5 18.5 8.2 15.4 8.2 12S9.5 5.5 12 3Z"/></svg>
+                            www.micelia.com.ar
+                        </div>
+                        <a href="https://www.linkedin.com/in/diego-r%C3%A9bora-27723221/" style="display:flex; align-items:center; gap:10px; font-size:16px; color:#E2E8F0; font-weight:600; text-decoration:none;">
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="#2DD4BF" stroke="none" style="vertical-align:-3px;"><path d="M4.98 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM.5 8h4V23h-4Zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-6.6c0-1.57-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.5V23H8Z"/></svg>
+                            LinkedIn · Diego Rébora
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line" style="border-top:none; justify-content:center;"><span
+                    style="color:#475569; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; font-size:11px;">Materiales,
+                    Diapositivas y Guías de Prompts Disponibles</span></div>
+        </div>
+
+    </div>
+</body>
+
+</html>
